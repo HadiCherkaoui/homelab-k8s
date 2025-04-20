@@ -153,3 +153,30 @@ variable "metallb_values" {
   type        = any
   default     = {}
 }
+
+# SMB variables for shared storage
+variable "smb_enabled" {
+  description = "Whether to enable SMB server for shared storage"
+  type        = bool
+  default     = true
+}
+
+variable "smb_username" {
+  description = "Username for SMB authentication"
+  type        = string
+  default     = "k8s"
+  sensitive   = true
+}
+
+variable "smb_password" {
+  description = "Password for SMB authentication"
+  type        = string
+  default     = "changeme"
+  sensitive   = true
+}
+
+variable "smb_shared_pvcs" {
+  description = "List of existing PVC names to share via SMB"
+  type        = list(string)
+  default     = []
+}

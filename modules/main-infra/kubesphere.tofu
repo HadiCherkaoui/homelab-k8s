@@ -95,11 +95,12 @@ resource "kubectl_manifest" "kubesphere_installer" {
 
 # Create Ingress for KubeSphere console if both KubeSphere and Traefik are enabled
 resource "kubernetes_ingress_v1" "kubesphere_console" {
+  # NOTE: Namespace changed to main-infra for consistency. If KubeSphere expects its own namespace, adjust accordingly in the app config.
   count = var.kubesphere_enabled && var.traefik_enabled ? 1 : 0
 
   metadata {
     name      = "kubesphere-console"
-    namespace = "kubesphere-system" # KubeSphere creates its own namespace
+    namespace = kubernetes_namespace.main_infra.metadata[0].name # Use main-infra namespace for consistency
 
     annotations = {
       # Ingress class and middleware
