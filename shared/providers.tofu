@@ -1,24 +1,23 @@
-# OpenTofu providers configuration for shared module
-
 terraform {
   required_version = ">= 1.9.0"
-
   required_providers {
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = ">= 2.23.0"
+      source  = "registry.opentofu.org/hashicorp/kubernetes"
+      version = ">= 2.20"
     }
     helm = {
-      source  = "hashicorp/helm"
-      version = ">= 2.10.0"
+      source  = "registry.opentofu.org/hashicorp/helm"
+      version = ">= 2.10"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.14.0"
-    }
-    local = {
-      source  = "hashicorp/local"
-      version = ">= 2.4.0"
-    }
+  }
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
   }
 }

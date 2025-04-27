@@ -1,39 +1,29 @@
-# Variables for provider configuration
-
-variable "kube_config_path" {
-  description = "Path to the kubeconfig file"
+variable "traefik_namespace" {
+  description = "Namespace to install Traefik into."
   type        = string
-  default     = "~/.kube/config"
+  default     = "traefik"
 }
 
-variable "kube_context" {
-  description = "Kubernetes context to use from the kubeconfig file"
+variable "metallb_namespace" {
+  description = "Namespace to install MetalLB into."
   type        = string
-  default     = ""
+  default     = "metallb-system"
 }
 
-# Variables for local storage configuration
-
-variable "local_storage_path" {
-  description = "Path to the local storage directory on the host"
+variable "acme_email" {
+  description = "Email address for ACME (Let's Encrypt) registration."
   type        = string
-  default     = "/mnt/k8s"
+  sensitive   = true
 }
 
-variable "local_storage_size" {
-  description = "Size of the local storage volume"
+variable "local_path_provisioner_path" {
+  description = "Path on the node where local-path-provisioner will create PVs."
   type        = string
-  default     = "6000Gi"
+  default     = "/opt/local-path-provisioner"
 }
 
-variable "node_hostname" {
-  description = "Hostname of the Kubernetes node where local storage is available"
+variable "metallb_ip_range" {
+  description = "IP address range for MetalLB LoadBalancer services."
   type        = string
-  default     = "k8s-node"
-}
-
-variable "local_path_provisioner_namespace" {
-  description = "Namespace where the Local Path Provisioner is deployed"
-  type        = string
-  default     = "ns-local-path-storage"
+  default     = "192.168.1.200-192.168.1.220"
 }

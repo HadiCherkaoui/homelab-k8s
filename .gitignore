@@ -36,6 +36,8 @@ override.tf.json
 .tofurc
 tofu.rc
 
+tp
+
 # Ignore lock files
 .terraform.lock.hcl
 .tofu.lock.hcl
