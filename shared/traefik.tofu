@@ -19,11 +19,10 @@ resource "helm_release" "traefik" {
           enabled = true
         }
         kubernetesIngress = {
-          enabled = false # Disable legacy Ingress provider
+          enabled = false
         }
       }
 
-      # Create IngressClass and set as default
       ingressClass = {
         enabled        = true
         isDefaultClass = true
@@ -37,7 +36,6 @@ resource "helm_release" "traefik" {
         }
       }
 
-      # Configure ACME (Let's Encrypt)
       certificatesResolvers = {
         letsencrypt = {
           acme = {
@@ -50,20 +48,27 @@ resource "helm_release" "traefik" {
         }
       }
 
-      # Enable persistence for ACME storage
       persistence = {
         enabled = true
         path    = "/data"
       }
 
-      # Ensure web entrypoint is available for HTTP-01 challenge
+      securityContext = {
+        runAsNonRoot = false
+        runAsUser    = 0
+        capabilities = {
+          drop = ["ALL"]
+          add  = ["NET_BIND_SERVICE"]
+        }
+      }
+
       ports = {
         web = {
-          port        = 8000
+          port        = 80
           exposedPort = 80
         }
         websecure = {
-          port        = 8443
+          port        = 443
           exposedPort = 443
           tls = {
             enabled = true
@@ -76,31 +81,14 @@ resource "helm_release" "traefik" {
             default = true
           }
         }
+        metrics = {
+          port        = 8080
+          exposedPort = 8080
+        }
       }
 
       hostNetwork = true
 
-      # Configure service exposure
-      service = {
-        enabled = false
-        type    = "LoadBalancer"
-        ports = {
-          web = {
-            targetPort = 8000
-            port       = 80
-          }
-          websecure = {
-            targetPort = 8443
-            port       = 443
-          }
-          traefik = {
-            targetPort = 9000
-            port       = 9000
-          }
-        }
-      }
-
-      # Explicitly define exposing ports through annotations instead of expose field
       additionalArguments = [
         "--entrypoints.web.http.redirections.entryPoint.to=websecure",
         "--entrypoints.web.http.redirections.entryPoint.scheme=https"
@@ -110,7 +98,6 @@ resource "helm_release" "traefik" {
 
   depends_on = [
     kubernetes_namespace.traefik,
-    helm_release.local_path_provisioner,
-    helm_release.metallb
+    helm_release.local_path_provisioner
   ]
 }

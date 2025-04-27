@@ -1,34 +1,7 @@
-# /home/hadi/Documents/GitHub/homelab-k8s/main.tofu
-module "shared_infra" {
-  source = "./shared"
-
-  # Pass the sensitive ACME email from the root variable definition
-  acme_email                  = var.acme_email
-  local_path_provisioner_path = var.local_path_provisioner_path
-}
-
-module "monitoring" {
-  source = "./modules/monitoring"
-
-  grafana_hostname       = var.grafana_hostname
-  grafana_admin_password = var.grafana_admin_password
-  prometheus_retention   = var.prometheus_retention
-  prometheus_storage     = var.prometheus_storage
-  alertmanager_storage   = var.alertmanager_storage
-  grafana_storage        = var.grafana_storage
-}
-
-# Define the root variable needed by the module
-variable "acme_email" {
-  description = "Email address for ACME (Let's Encrypt) registration."
+variable "monitoring_namespace" {
+  description = "Namespace for monitoring components (Prometheus, Grafana)"
   type        = string
-  sensitive   = true
-}
-
-variable "local_path_provisioner_path" {
-  description = "Path on the node where local-path-provisioner will create PVs."
-  type        = string
-  default     = "/mnt/k8s"
+  default     = "monitoring"
 }
 
 variable "grafana_hostname" {
