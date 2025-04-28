@@ -91,6 +91,7 @@ resource "helm_release" "monitoring" {
 }
 
 resource "kubernetes_manifest" "grafana_ingressroute" {
+  depends_on = [kubernetes_namespace.monitoring]
   manifest = {
     apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
@@ -107,12 +108,16 @@ resource "kubernetes_manifest" "grafana_ingressroute" {
 
     spec = {
       entryPoints = ["websecure"]
-
       routes = [
         {
           match = "Host(`${var.grafana_hostname}`) && PathPrefix(`/`)"
           kind  = "Rule"
-
+          middlewares = [
+            {
+              name      = "security-headers"
+              namespace = "traefik"
+            }
+          ]
           services = [
             {
               name = "monitoring-grafana"
@@ -123,7 +128,6 @@ resource "kubernetes_manifest" "grafana_ingressroute" {
       ]
 
       tls = {
-        secretName   = "grafana-tls-secret"
         certResolver = "letsencrypt"
       }
     }
