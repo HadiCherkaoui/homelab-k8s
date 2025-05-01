@@ -11,7 +11,7 @@ resource "helm_release" "local_path_provisioner" {
       }
       nodePathMap = [
         {
-          node = "k8s-node"
+          node = "k8s-homelab"
           paths = [
             var.local_path_provisioner_path
           ]
