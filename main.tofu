@@ -1,10 +1,3 @@
-module "pve" {
-  source = "./modules/pve"
-
-  proxmox_password = var.proxmox_password
-  proxmox_user     = var.proxmox_user
-}
-
 module "vpn" {
   source = "./modules/wg-easy"
 

@@ -47,17 +47,6 @@ variable "grafana_storage" {
   default     = "5Gi"
 }
 
-variable "proxmox_user" {
-  type        = string
-  description = "Proxmox username"
-}
-
-variable "proxmox_password" {
-  type        = string
-  description = "Proxmox password"
-  sensitive   = true
-}
-
 variable "openvpn_user" {
   type      = string
   sensitive = true
@@ -66,10 +55,6 @@ variable "openvpn_user" {
 variable "openvpn_password" {
   type      = string
   sensitive = true
-}
-
-variable "proxmox_host" {
-  type = string
 }
 
 variable "plex_hostname" {

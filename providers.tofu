@@ -9,10 +9,6 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.10"
     }
-    proxmox = {
-      source  = "telmate/proxmox"
-      version = ">= 2.9.14"
-    }
   }
 }
 
@@ -24,11 +20,4 @@ provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
   }
-}
-
-provider "proxmox" {
-  host         = var.proxmox_host
-  user         = "${var.proxmox_user}@pam"
-  password     = var.proxmox_password
-  tls_insecure = true
 }

@@ -21,11 +21,6 @@ notifiarr_apikey = ""
 # VPN
 wg_easy_password_hash = ""
 
-# PVE
-proxmox_user     = "test@pam"
-proxmox_password = "test"
-proxmox_host     = "https://proxmox-host:8006/api2/json"
-
 # Websites
 hadi_hostname       = "hadi.example.com"
 laura_hostname      = "laura.example.com"
