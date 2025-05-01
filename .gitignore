@@ -45,4 +45,6 @@ tp
 # windsurf rules
 .windsurfrules
 
+.extra
+
 .terraform

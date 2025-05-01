@@ -1,0 +1,44 @@
+# Global
+acme_email                  = "example@example.com"
+local_path_provisioner_path = "/mnt/k8s"
+
+# Monitoring
+grafana_hostname       = "grafana.example.com"
+grafana_admin_password = "prom-operator"
+
+# Prometheus
+prometheus_retention = "10d"
+prometheus_storage   = "10Gi"
+alertmanager_storage = "2Gi"
+grafana_storage      = "5Gi"
+
+# Media
+plex_hostname = "plex.example.com"
+openvpn_user     = ""
+openvpn_password = ""
+notifiarr_apikey = ""
+
+# VPN
+wg_easy_password_hash = ""
+
+# PVE
+proxmox_user     = "test@pam"
+proxmox_password = "test"
+proxmox_host     = "https://proxmox-host:8006/api2/json"
+
+# Websites
+hadi_hostname       = "hadi.example.com"
+laura_hostname      = "laura.example.com"
+quillium_docs_hostname = "quillium-docs.example.com"
+quillium_webhook_hostname = "quillium-webhook.example.com"
+docs_hostname       = "docs.example.com"
+
+# AI
+github_client_id     = ""
+github_client_secret = ""
+google_client_id     = ""
+google_client_secret = ""
+microsoft_client_id     = ""
+microsoft_client_secret = ""
+microsoft_tenant_id     = ""
+openwebui_hostname      = "openwebui.example.com"

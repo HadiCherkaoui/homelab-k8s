@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "traefik" {
 }
 
 resource "kubernetes_manifest" "traefik_security_headers" {
+  depends_on = [kubernetes_namespace.traefik]
   manifest = {
     apiVersion = "traefik.io/v1alpha1"
     kind       = "Middleware"
@@ -30,9 +31,8 @@ resource "kubernetes_manifest" "traefik_security_headers" {
   }
 }
 
-
-
 resource "helm_release" "traefik" {
+  depends_on = [kubernetes_namespace.traefik]
   name       = "traefik"
   repository = "https://traefik.github.io/charts"
   chart      = "traefik"
@@ -102,13 +102,6 @@ resource "helm_release" "traefik" {
             enabled = true
           }
         }
-        traefik = {
-          port        = 9000
-          exposedPort = 9000
-          expose = {
-            default = true
-          }
-        }
         metrics = {
           port        = 8080
           exposedPort = 8080
@@ -123,9 +116,35 @@ resource "helm_release" "traefik" {
       ]
     })
   ]
+}
 
-  depends_on = [
-    kubernetes_namespace.traefik,
-    helm_release.local_path_provisioner
-  ]
+resource "kubernetes_manifest" "traefik_servicemonitor" {
+  manifest = {
+    apiVersion = "monitoring.coreos.com/v1"
+    kind       = "ServiceMonitor"
+    metadata = {
+      name      = "traefik"
+      namespace = "monitoring"
+      labels = {
+        release = "kube-prometheus-stack"
+      }
+    }
+    spec = {
+      selector = {
+        matchLabels = {
+          app = "traefik"
+        }
+      }
+      namespaceSelector = {
+        matchNames = [kubernetes_namespace.traefik.metadata[0].name]
+      }
+      endpoints = [
+        {
+          port     = "metrics"
+          path     = "/metrics"
+          interval = "30s"
+        }
+      ]
+    }
+  }
 }

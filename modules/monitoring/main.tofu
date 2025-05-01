@@ -1,21 +1,9 @@
-provider "kubernetes" {
-  config_path = "~/.kube/config"
-}
-
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
-}
-
-# Create monitoring namespace
 resource "kubernetes_namespace" "monitoring" {
   metadata {
-    name = "monitoring"
+    name = var.monitoring_namespace
   }
 }
 
-# Deploy Prometheus Operator with built-in Grafana
 resource "helm_release" "monitoring" {
   depends_on = [kubernetes_namespace.monitoring]
 
@@ -23,6 +11,7 @@ resource "helm_release" "monitoring" {
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   namespace  = kubernetes_namespace.monitoring.metadata[0].name
+  timeout    = 1800
 
   values = [
     yamlencode({

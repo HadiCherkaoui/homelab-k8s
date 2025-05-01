@@ -46,3 +46,107 @@ variable "grafana_storage" {
   type        = string
   default     = "5Gi"
 }
+
+variable "proxmox_user" {
+  type        = string
+  description = "Proxmox username"
+}
+
+variable "proxmox_password" {
+  type        = string
+  description = "Proxmox password"
+  sensitive   = true
+}
+
+variable "openvpn_user" {
+  type      = string
+  sensitive = true
+}
+
+variable "openvpn_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "proxmox_host" {
+  type = string
+}
+
+variable "plex_hostname" {
+  type    = string
+  default = "plex.local.lab"
+}
+
+variable "notifiarr_apikey" {
+  type      = string
+  sensitive = true
+}
+
+variable "wg_easy_password_hash" {
+  type      = string
+  sensitive = true
+}
+
+variable "wg_easy_hostname" {
+  type    = string
+  default = "wg-easy.local.lab"
+}
+
+variable "hadi_hostname" {
+  type = string
+}
+
+variable "laura_hostname" {
+  type = string
+}
+
+variable "quillium_docs_hostname" {
+  type = string
+}
+
+variable "quillium_webhook_hostname" {
+  type = string
+}
+
+variable "docs_hostname" {
+  type = string
+}
+
+variable "github_client_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "github_client_secret" {
+  type      = string
+  sensitive = true
+}
+
+variable "google_client_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "google_client_secret" {
+  type      = string
+  sensitive = true
+}
+
+variable "microsoft_client_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "microsoft_client_secret" {
+  type      = string
+  sensitive = true
+}
+
+variable "microsoft_tenant_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "openwebui_hostname" {
+  type = string
+}
