@@ -103,8 +103,8 @@ resource "helm_release" "traefik" {
           }
         }
         metrics = {
-          port        = 8080
-          exposedPort = 8080
+          port        = 9100
+          exposedPort = 9100
         }
       }
 
