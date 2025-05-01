@@ -78,7 +78,7 @@ resource "kubernetes_manifest" "plex_ingressroute" {
           ]
           services = [
             {
-              name = "plex-plex-media-server-0"
+              name = "plex-plex-media-server"
               port = 32400
             }
           ]
