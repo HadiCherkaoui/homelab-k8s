@@ -16,6 +16,18 @@ variable "grafana_hostname" {
   default     = "grafana.local.lab"
 }
 
+variable "plex_hostname" {
+  description = "Hostname for Plex"
+  type        = string
+  default     = "plex.local.lab"
+}
+
+variable "plex_claim" {
+  description = "Plex claim"
+  type        = string
+  sensitive   = true
+}
+
 variable "grafana_admin_password" {
   description = "Admin password for Grafana"
   type        = string
@@ -55,11 +67,6 @@ variable "openvpn_user" {
 variable "openvpn_password" {
   type      = string
   sensitive = true
-}
-
-variable "plex_hostname" {
-  type    = string
-  default = "plex.local.lab"
 }
 
 variable "notifiarr_apikey" {

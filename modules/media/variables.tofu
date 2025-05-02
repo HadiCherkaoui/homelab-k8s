@@ -31,3 +31,8 @@ variable "openvpn_config" {
   type      = string
   sensitive = true
 }
+
+variable "plex_claim" {
+  type      = string
+  sensitive = true
+}

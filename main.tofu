@@ -45,6 +45,8 @@ module "media" {
   openvpn_password = var.openvpn_password
   openvpn_config   = file("./.extra/ch-06.protonvpn.udp.ovpn")
   notifiarr_apikey = var.notifiarr_apikey
+  plex_hostname    = var.plex_hostname
+  plex_claim       = var.plex_claim
 }
 
 module "craftycontroller" {

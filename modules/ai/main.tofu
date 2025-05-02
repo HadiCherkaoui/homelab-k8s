@@ -68,7 +68,7 @@ resource "kubernetes_manifest" "openwebui_ingressroute" {
           services = [
             {
               name = "open-webui"
-              port = 80
+              port = "http"
             }
           ]
         }

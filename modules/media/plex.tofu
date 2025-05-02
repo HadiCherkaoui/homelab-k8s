@@ -7,26 +7,40 @@ resource "kubernetes_namespace" "media" {
 resource "helm_release" "plex" {
   depends_on = [kubernetes_namespace.media]
   name       = "plex"
-  repository = "https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages"
-  chart      = "plex-media-server"
+  repository = "oci://tccr.io/truecharts"
+  chart      = "plex"
   namespace  = kubernetes_namespace.media.metadata[0].name
 
   values = [
     yamlencode({
-      extraVolumeMounts = [
-        {
-          name      = "media"
-          mountPath = "/media"
+      persistence = {
+        config = {
+          enabled   = true
+          size      = "5Gi"
+          mountPath = "/config"
         }
-      ]
-      extraVolumes = [
-        {
-          name = "media"
-          persistentVolumeClaim = {
-            claimName = "plex-media"
+        media = {
+          enabled       = true
+          existingClaim = "plex-media"
+          mountPath     = "/media"
+        }
+      }
+      plex = {
+        additionalAdvertiseURL = "https://${var.plex_hostname}"
+      }
+      workload = {
+        main = {
+          podSpec = {
+            containers = {
+              main = {
+                env = {
+                  PLEX_CLAIM = var.plex_claim
+                }
+              }
+            }
           }
         }
-      ]
+      }
     })
   ]
 }
@@ -68,7 +82,7 @@ resource "kubernetes_manifest" "plex_ingressroute" {
       entryPoints = ["websecure"]
       routes = [
         {
-          match = "Host(`${var.plex_hostname}`) && PathPrefix(`/`)"
+          match = "Host(`${var.plex_hostname}`)"
           kind  = "Rule"
           middlewares = [
             {
@@ -78,7 +92,7 @@ resource "kubernetes_manifest" "plex_ingressroute" {
           ]
           services = [
             {
-              name = "plex-plex-media-server"
+              name = "plex"
               port = 32400
             }
           ]
