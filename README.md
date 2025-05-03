@@ -47,11 +47,6 @@ The infrastructure is designed around a single-node Kubernetes cluster with modu
    tofu apply
    ```
 
-5. Format the code (as per user rules):
-   ```bash
-   tofu fmt -recursive
-   ```
-
 ## Maintenance
 
 ### Updates
