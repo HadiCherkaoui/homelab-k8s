@@ -110,6 +110,18 @@ resource "helm_release" "traefik" {
 
       hostNetwork = true
 
+      service = {
+        type = "ClusterIP"
+      }
+
+      metrics = {
+        prometheus = {
+          service = {
+            enabled = true
+          }
+        }
+      }
+
       additionalArguments = [
         "--entrypoints.web.http.redirections.entryPoint.to=websecure",
         "--entrypoints.web.http.redirections.entryPoint.scheme=https"
@@ -126,13 +138,17 @@ resource "kubernetes_manifest" "traefik_servicemonitor" {
       name      = "traefik"
       namespace = "monitoring"
       labels = {
-        release = "kube-prometheus-stack"
+        app                      = "kube-prometheus-stack-traefik"
+        "app.kubernetes.io/name" = "traefik"
+        release                  = "monitoring"
       }
     }
     spec = {
+      jobLabel = "app.kubernetes.io/name"
       selector = {
         matchLabels = {
-          app = "traefik"
+          "app.kubernetes.io/instance" = "traefik-traefik"
+          "app.kubernetes.io/name"     = "traefik"
         }
       }
       namespaceSelector = {
@@ -140,9 +156,18 @@ resource "kubernetes_manifest" "traefik_servicemonitor" {
       }
       endpoints = [
         {
-          port     = "metrics"
-          path     = "/metrics"
-          interval = "30s"
+          port            = "metrics"
+          path            = "/metrics"
+          interval        = "30s"
+          honorLabels     = true
+          honorTimestamps = true
+          relabelings = [
+            {
+              action       = "replace"
+              sourceLabels = ["__metrics_path__"]
+              targetLabel  = "metrics_path"
+            }
+          ]
         }
       ]
     }
