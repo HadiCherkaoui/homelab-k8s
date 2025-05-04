@@ -34,7 +34,7 @@ resource "helm_release" "wg_easy" {
                   WG_PORT          = 51820
                   UI_TRAFFIC_STATS = true
                   WG_ALLOWED_IPS   = "10.0.0.0/8,0.0.0.0/0"
-                  WG_MTU           = 1024
+                  WG_MTU           = 1420
                 }
               }
             }
