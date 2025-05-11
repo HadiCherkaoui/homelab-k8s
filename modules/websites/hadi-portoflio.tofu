@@ -4,38 +4,58 @@ resource "kubernetes_namespace" "websites" {
   }
 }
 
-resource "helm_release" "nginx_hadi" {
-  name       = "nginx-hadi"
-  repository = "oci://registry-1.docker.io/bitnamicharts"
-  chart      = "nginx"
-  namespace  = kubernetes_namespace.websites.metadata[0].name
-  wait       = false
+resource "kubernetes_deployment" "hadi" {
+  depends_on = [kubernetes_namespace.websites]
 
-  values = [
-    yamlencode({
-      extraVolumeMounts = [
-        {
-          name      = "website"
-          mountPath = "/app"
-          subPath   = "hadi"
+  metadata {
+    name      = "hadi"
+    namespace = kubernetes_namespace.websites.metadata[0].name
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = "hadi"
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = "hadi"
         }
-      ]
-      extraVolumes = [
-        {
-          name = "website"
-          persistentVolumeClaim = {
-            claimName = kubernetes_persistent_volume_claim.websites.metadata[0].name
+      }
+      spec {
+        container {
+          name  = "hadi"
+          image = "ghcr.io/hadicherkaoui/portfolio:latest"
+          port {
+            container_port = 3000
+            name           = "main"
           }
         }
-      ]
-      tls = {
-        enabled = false
       }
-      service = {
-        type = "ClusterIP"
-      }
-    })
-  ]
+    }
+  }
+}
+
+resource "kubernetes_service" "hadi" {
+  metadata {
+    name      = "hadi"
+    namespace = kubernetes_namespace.websites.metadata[0].name
+  }
+
+  spec {
+    selector = {
+      app = "hadi"
+    }
+    type = "ClusterIP"
+    port {
+      name        = "web"
+      port        = 3000
+      target_port = 3000
+      protocol    = "TCP"
+    }
+  }
 }
 
 resource "kubernetes_persistent_volume_claim" "websites" {
@@ -85,8 +105,8 @@ resource "kubernetes_manifest" "hadi_ingressroute" {
           ]
           services = [
             {
-              name = "nginx-hadi"
-              port = 80
+              name = "hadi"
+              port = 3000
             }
           ]
         }
