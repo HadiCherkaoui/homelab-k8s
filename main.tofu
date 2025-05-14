@@ -68,3 +68,12 @@ module "ai" {
 
   openwebui_hostname = var.openwebui_hostname
 }
+
+module "paperless" {
+  source = "./modules/paperless"
+
+  paperless_admin_user     = var.paperless_admin_user
+  paperless_admin_password = var.paperless_admin_password
+  paperless_admin_mail     = var.paperless_admin_mail
+  paperless_hostname       = var.paperless_hostname
+}
