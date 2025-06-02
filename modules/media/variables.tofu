@@ -36,3 +36,35 @@ variable "plex_claim" {
   type      = string
   sensitive = true
 }
+
+variable "notifiarr_version" {
+  type = string
+}
+
+variable "sonarr_version" {
+  type = string
+}
+
+variable "qbittorrent_version" {
+  type = string
+}
+
+variable "radarr_version" {
+  type = string
+}
+
+variable "prowlarr_version" {
+  type = string
+}
+
+variable "flaresolverr_version" {
+  type = string
+}
+
+variable "overseerr_version" {
+  type = string
+}
+
+variable "plex_version" {
+  type = string
+}

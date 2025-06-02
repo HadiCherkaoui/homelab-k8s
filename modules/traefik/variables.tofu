@@ -9,3 +9,7 @@ variable "acme_email" {
   type        = string
   sensitive   = true
 }
+
+variable "traefik_version" {
+  type = string
+}

@@ -27,7 +27,7 @@ resource "kubernetes_deployment" "craftycontroller" {
       spec {
         container {
           name  = "craftycontroller"
-          image = "registry.gitlab.com/crafty-controller/crafty-4:latest"
+          image = "registry.gitlab.com/crafty-controller/crafty-4:${var.craftycontroller_version}"
           port {
             container_port = 8443
             name           = "https"

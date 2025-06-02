@@ -40,3 +40,7 @@ variable "grafana_storage" {
   type        = string
   default     = "5Gi"
 }
+
+variable "monitoring_version" {
+  type = string
+}

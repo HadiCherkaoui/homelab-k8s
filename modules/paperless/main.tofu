@@ -62,6 +62,7 @@ resource "helm_release" "cnpg_operator" {
   repository = "https://cloudnative-pg.github.io/charts"
   chart      = "cloudnative-pg"
   namespace  = kubernetes_namespace.paperless.metadata[0].name
+  version    = var.cnpg_operator_version
 }
 
 resource "helm_release" "paperless" {
@@ -71,6 +72,7 @@ resource "helm_release" "paperless" {
   repository = "oci://tccr.io/truecharts"
   chart      = "paperless-ngx"
   namespace  = kubernetes_namespace.paperless.metadata[0].name
+  version    = var.paperless_version
 
   values = [
     yamlencode({

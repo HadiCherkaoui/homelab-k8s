@@ -4,6 +4,7 @@ resource "helm_release" "radarr" {
   repository = "oci://tccr.io/truecharts"
   chart      = "radarr"
   namespace  = kubernetes_namespace.media.metadata[0].name
+  version    = var.radarr_version
 
   values = [
     yamlencode({

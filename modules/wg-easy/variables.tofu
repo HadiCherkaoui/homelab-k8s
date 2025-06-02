@@ -14,3 +14,8 @@ variable "wg_easy_hostname" {
   description = "Hostname for wg-easy"
   type        = string
 }
+
+variable "wg_easy_version" {
+  description = "Version of wg-easy to install"
+  type        = string
+}

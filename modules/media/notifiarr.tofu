@@ -4,6 +4,7 @@ resource "helm_release" "notifiarr" {
   chart      = "notifiarr"
   namespace  = kubernetes_namespace.media.metadata[0].name
   repository = "oci://tccr.io/truecharts"
+  version    = var.notifiarr_version
 
   values = [
     yamlencode({

@@ -43,3 +43,19 @@ paperless_admin_user     = "admin"
 paperless_admin_password = "changeme"
 paperless_admin_mail     = "admin@admin.com"
 paperless_hostname       = "paperless.example.com"
+
+# Versioning
+wg_easy_version = "17.0.0" # https://truecharts.org/charts/stable/wg-easy/
+traefik_version = "35.4.0" # https://github.com/traefik/traefik-helm-chart/releases
+paperless_version = "10.1.2" # https://truecharts.org/charts/stable/paperless-ngx/
+cnpg_operator_version = "0.24.0" # helm search repo cnpg/cloudnative-pg
+monitoring_version = "72.9.0" # https://github.com/prometheus-community/helm-charts/releases
+notifiarr_version = "6.6.1" # https://truecharts.org/charts/stable/notifiarr/
+sonarr_version = "23.8.1" # https://truecharts.org/charts/stable/sonarr/
+qbittorrent_version = "22.5.2" # https://truecharts.org/charts/stable/qbittorrent/
+radarr_version = "23.26.0" # https://truecharts.org/charts/stable/radarr/
+prowlarr_version = "18.22.3" # https://truecharts.org/charts/stable/prowlarr/
+flaresolverr_version = "15.5.1" # https://truecharts.org/charts/stable/flaresolverr/
+overseerr_version = "15.6.0" # https://truecharts.org/charts/stable/overseerr/
+plex_version = "19.6.13" # https://truecharts.org/charts/stable/plex/
+craftycontroller_version = "4.4.9" # https://gitlab.com/crafty-controller/crafty-4/-/releases

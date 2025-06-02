@@ -3,12 +3,14 @@ module "vpn" {
 
   wg_easy_password_hash = var.wg_easy_password_hash
   wg_easy_hostname      = var.wg_easy_hostname
+  wg_easy_version       = var.wg_easy_version
 }
 
 module "traefik" {
   source = "./modules/traefik"
 
   acme_email = var.acme_email
+  traefik_version = var.traefik_version
 }
 
 module "storage" {
@@ -36,6 +38,7 @@ module "monitoring" {
   prometheus_storage     = var.prometheus_storage
   alertmanager_storage   = var.alertmanager_storage
   grafana_storage        = var.grafana_storage
+  monitoring_version     = var.monitoring_version
 }
 
 module "media" {
@@ -47,10 +50,20 @@ module "media" {
   notifiarr_apikey = var.notifiarr_apikey
   plex_hostname    = var.plex_hostname
   plex_claim       = var.plex_claim
+  notifiarr_version = var.notifiarr_version
+  sonarr_version = var.sonarr_version
+  qbittorrent_version = var.qbittorrent_version
+  radarr_version = var.radarr_version
+  prowlarr_version = var.prowlarr_version
+  flaresolverr_version = var.flaresolverr_version
+  overseerr_version = var.overseerr_version
+  plex_version = var.plex_version
 }
 
 module "craftycontroller" {
   source = "./modules/craftycontroller"
+
+  craftycontroller_version = var.craftycontroller_version
 }
 
 module "ai" {
@@ -76,4 +89,6 @@ module "paperless" {
   paperless_admin_password = var.paperless_admin_password
   paperless_admin_mail     = var.paperless_admin_mail
   paperless_hostname       = var.paperless_hostname
+  paperless_version        = var.paperless_version
+  cnpg_operator_version    = var.cnpg_operator_version
 }
