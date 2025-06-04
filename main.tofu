@@ -106,4 +106,5 @@ module "gitlab" {
   gitlab_smtp_password     = var.gitlab_smtp_password
   protonmail_username      = var.protonmail_username
   proton_birdge_version    = var.proton_birdge_version
+  gitlab_agent_token       = var.gitlab_agent_token
 }

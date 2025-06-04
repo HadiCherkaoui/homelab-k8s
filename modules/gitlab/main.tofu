@@ -134,26 +134,27 @@ resource "helm_release" "proton_birdge" {
   depends_on = [kubernetes_namespace.gitlab]
 }
 
-#resource "helm_release" "gitlab_agent" {
-#  name       = "gitlab-agent"
-#  repository = "https://charts.gitlab.io"
-#  chart      = "gitlab-agent"
-#  namespace  = kubernetes_namespace.gitlab.metadata[0].name
-#  version    = var.gitlab_agent_version
-#
-#  depends_on = [kubernetes_namespace.gitlab]
-#
-#  values = [
-#    yamlencode({
-#      config = {
-#        kasAddress = "wss://${var.gitlab_hostname}/-/kubernetes-agent/"
-#      }
-#      serviceMonitor = {
-#        enabled = true
-#      }
-#    })
-#  ]
-#}
+resource "helm_release" "gitlab_agent" {
+  name       = "gitlab-agent"
+  repository = "https://charts.gitlab.io"
+  chart      = "gitlab-agent"
+  namespace  = kubernetes_namespace.gitlab.metadata[0].name
+  version    = var.gitlab_agent_version
+
+  depends_on = [kubernetes_namespace.gitlab]
+
+  values = [
+    yamlencode({
+      config = {
+        kasAddress = "wss://${var.gitlab_kas_hostname}"
+        token = var.gitlab_agent_token
+      }
+      serviceMonitor = {
+        enabled = true
+      }
+    })
+  ]
+}
 
 resource "kubernetes_manifest" "gitlab_ssh_ingressroutetcp" {
   depends_on = [kubernetes_namespace.gitlab]

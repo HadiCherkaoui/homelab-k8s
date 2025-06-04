@@ -193,3 +193,8 @@ variable "gitlab_smtp_password" {
 variable "protonmail_username" {
   type = string
 }
+
+variable "gitlab_agent_token" {
+  type = string
+  sensitive = true
+}
