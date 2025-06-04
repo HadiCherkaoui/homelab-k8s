@@ -59,3 +59,5 @@ flaresolverr_version = "15.5.1" # https://truecharts.org/charts/stable/flaresolv
 overseerr_version = "15.6.0" # https://truecharts.org/charts/stable/overseerr/
 plex_version = "19.6.13" # https://truecharts.org/charts/stable/plex/
 craftycontroller_version = "4.4.9" # https://gitlab.com/crafty-controller/crafty-4/-/releases
+gitlab_version = "9.0.1" # helm search repo -l gitlab/gitlab
+gitlab_agent_version = "2.15.0" # helm search repo -l gitlab/gitlab

@@ -9,7 +9,7 @@ module "vpn" {
 module "traefik" {
   source = "./modules/traefik"
 
-  acme_email = var.acme_email
+  acme_email      = var.acme_email
   traefik_version = var.traefik_version
 }
 
@@ -44,20 +44,20 @@ module "monitoring" {
 module "media" {
   source = "./modules/media"
 
-  openvpn_user     = var.openvpn_user
-  openvpn_password = var.openvpn_password
-  openvpn_config   = file("./.extra/ch-06.protonvpn.udp.ovpn")
-  notifiarr_apikey = var.notifiarr_apikey
-  plex_hostname    = var.plex_hostname
-  plex_claim       = var.plex_claim
-  notifiarr_version = var.notifiarr_version
-  sonarr_version = var.sonarr_version
-  qbittorrent_version = var.qbittorrent_version
-  radarr_version = var.radarr_version
-  prowlarr_version = var.prowlarr_version
+  openvpn_user         = var.openvpn_user
+  openvpn_password     = var.openvpn_password
+  openvpn_config       = file("./.extra/ch-06.protonvpn.udp.ovpn")
+  notifiarr_apikey     = var.notifiarr_apikey
+  plex_hostname        = var.plex_hostname
+  plex_claim           = var.plex_claim
+  notifiarr_version    = var.notifiarr_version
+  sonarr_version       = var.sonarr_version
+  qbittorrent_version  = var.qbittorrent_version
+  radarr_version       = var.radarr_version
+  prowlarr_version     = var.prowlarr_version
   flaresolverr_version = var.flaresolverr_version
-  overseerr_version = var.overseerr_version
-  plex_version = var.plex_version
+  overseerr_version    = var.overseerr_version
+  plex_version         = var.plex_version
 }
 
 module "craftycontroller" {
@@ -91,4 +91,19 @@ module "paperless" {
   paperless_hostname       = var.paperless_hostname
   paperless_version        = var.paperless_version
   cnpg_operator_version    = var.cnpg_operator_version
+}
+
+module "gitlab" {
+  source = "./modules/gitlab"
+
+  gitlab_domain            = var.gitlab_domain
+  gitlab_hostname          = var.gitlab_hostname
+  gitlab_registry_hostname = var.gitlab_registry_hostname
+  gitlab_minio_hostname    = var.gitlab_minio_hostname
+  gitlab_kas_hostname      = var.gitlab_kas_hostname
+  gitlab_version           = var.gitlab_version
+  gitlab_agent_version     = var.gitlab_agent_version
+  gitlab_smtp_password     = var.gitlab_smtp_password
+  protonmail_username      = var.protonmail_username
+  proton_birdge_version    = var.proton_birdge_version
 }

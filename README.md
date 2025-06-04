@@ -16,6 +16,7 @@ The infrastructure is designed around a single-node Kubernetes cluster with modu
 ### Applications
 - **[AI](./modules/ai/README.md)**: Open WebUI for interacting with AI models
 - **[Crafty Controller](./modules/craftycontroller/README.md)**: Minecraft server management
+- **[GitLab](./modules/gitlab/README.md)**: Self-hosted Git repository management with CI/CD
 - **[Media](./modules/media/README.md)**: Complete media server stack (Plex, Sonarr, Radarr, etc.)
 - **[Websites](./modules/websites/README.md)**: Personal websites and documentation platforms
 - **[WireGuard Easy](./modules/wg-easy/README.md)**: VPN server with web UI

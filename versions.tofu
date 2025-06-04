@@ -53,3 +53,18 @@ variable "plex_version" {
 variable "craftycontroller_version" {
   type = string
 }
+
+variable "gitlab_version" {
+  type        = string
+  description = "GitLab version"
+}
+
+variable "gitlab_agent_version" {
+  type        = string
+  description = "GitLab agent version"
+}
+
+variable "proton_birdge_version" {
+  type        = string
+  description = "Protonmail bridge version"
+}
