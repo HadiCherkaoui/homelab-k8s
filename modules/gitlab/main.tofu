@@ -155,6 +155,35 @@ resource "helm_release" "proton_birdge" {
 #  ]
 #}
 
+resource "kubernetes_manifest" "gitlab_ssh_ingressroutetcp" {
+  depends_on = [kubernetes_namespace.gitlab]
+  manifest = {
+    apiVersion = "traefik.io/v1alpha1"
+    kind       = "IngressRouteTCP"
+
+    metadata = {
+      name      = "gitlab-ssh"
+      namespace = kubernetes_namespace.gitlab.metadata[0].name
+    }
+
+    spec = {
+      entryPoints = ["ssh"]
+      routes = [
+        {
+          match = "HostSNI(`*`)"
+          kind  = "Rule"
+          services = [
+            {
+              name = "gitlab-gitlab-shell"
+              port = "ssh"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
 resource "kubernetes_manifest" "gitlab_ingressroute" {
   depends_on = [kubernetes_namespace.gitlab]
   manifest = {

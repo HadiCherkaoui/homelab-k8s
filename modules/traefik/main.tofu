@@ -107,6 +107,13 @@ resource "helm_release" "traefik" {
           port        = 9101
           exposedPort = 9101
         }
+        ssh = {
+          port        = 22
+          exposedPort = 22
+          tls = {
+            passthrough = true
+          }
+        }
       }
 
       hostNetwork = true
