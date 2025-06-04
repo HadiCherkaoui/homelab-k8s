@@ -1,0 +1,9 @@
+ci_access:
+  projects:
+    - id: HadiCherkaoui/homelab-k8s
+
+user_access:
+  access_as:
+    agent: {}
+  projects:
+    - id: HadiCherkaoui/homelab-k8s
