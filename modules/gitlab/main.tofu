@@ -75,15 +75,18 @@ resource "helm_release" "gitlab" {
         }
         email = {
           from           = var.protonmail_username
-          display_name   = "GitLab on Homelab"
+          display_name   = "Cherkaoui Gitlab"
           reply_to       = var.protonmail_username
-          subject_suffix = "[GitLab]"
+          subject_suffix = ""
         }
         monitoring = {
           enabled = true
         }
       }
       gitlab = {
+        migrations = {
+          resources = { requests = {} }
+        }
         webservice = {
           minReplicas = 1
           maxReplicas = 1
