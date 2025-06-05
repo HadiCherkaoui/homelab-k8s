@@ -1,7 +1,3 @@
-# ⚠️ WARNING ⚠️
-
-This GitHub repository is a **READ-ONLY MIRROR**. If you would like to contribute, please go to the official repository at: https://gitlab.cherkaoui.ch/HadiCherkaoui/homelab-k8s
-
 # Homelab Kubernetes Infrastructure
 
 ## Overview
