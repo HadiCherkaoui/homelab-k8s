@@ -25,7 +25,6 @@ module "websites" {
   hadi_hostname             = var.hadi_hostname
   laura_hostname            = var.laura_hostname
   quillium_docs_hostname    = var.quillium_docs_hostname
-  quillium_webhook_hostname = var.quillium_webhook_hostname
   docs_hostname             = var.docs_hostname
 }
 
