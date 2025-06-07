@@ -8,7 +8,7 @@ variables:
   TOFU_VERSION: "1.9.1"
   TF_IN_AUTOMATION: "true"
   TF_INPUT: "false"
-  TF_USERNAME: "token"
+  TF_USERNAME: "gitlab-ci-token"
   TF_ADDRESS: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/homelab-k8s"
 
 before_script:
