@@ -220,7 +220,7 @@ spec:
 ---
 
 include:
-  - local: '/templates/fmt.yml'
+  - local: 'fmt.yml'
     rules:
       - if: '"$[[ inputs.trigger_in_child_pipeline ]]" == "false"'
     inputs:
