@@ -1,3 +1,5 @@
+image: ubuntu:24.04
+
 stages:
   - plan
   - apply
@@ -10,6 +12,7 @@ variables:
   TF_ADDRESS: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/homelab-k8s"
 
 before_script:
+  - apt-get update && apt-get install -y curl unzip
   - curl -sLo tofu.zip https://github.com/opentofu/opentofu/releases/download/v${TOFU_VERSION}/tofu_${TOFU_VERSION}_linux_amd64.zip
   - unzip tofu.zip
   - mv tofu /usr/local/bin/
