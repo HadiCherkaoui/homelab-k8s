@@ -19,11 +19,3 @@ variable "paperless_namespace" {
   type    = string
   default = "paperless"
 }
-
-variable "paperless_version" {
-  type = string
-}
-
-variable "cnpg_operator_version" {
-  type = string
-}

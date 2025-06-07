@@ -10,7 +10,7 @@ resource "helm_release" "plex" {
   repository = "oci://tccr.io/truecharts"
   chart      = "plex"
   namespace  = kubernetes_namespace.media.metadata[0].name
-  version    = var.plex_version
+  version    = "19.6.13"
 
   values = [
     yamlencode({

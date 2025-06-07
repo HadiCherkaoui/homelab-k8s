@@ -23,21 +23,6 @@ variable "gitlab_kas_hostname" {
   description = "GitLab kas hostname"
 }
 
-variable "gitlab_version" {
-  type        = string
-  description = "GitLab version"
-}
-
-variable "gitlab_agent_version" {
-  type        = string
-  description = "GitLab agent version"
-}
-
-variable "proton_birdge_version" {
-  type        = string
-  description = "Protonmail bridge version"
-}
-
 variable "gitlab_smtp_password" {
   type      = string
   sensitive = true

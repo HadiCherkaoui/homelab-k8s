@@ -4,7 +4,7 @@ resource "helm_release" "prowlarr" {
   chart      = "prowlarr"
   namespace  = kubernetes_namespace.media.metadata[0].name
   repository = "oci://tccr.io/truecharts"
-  version    = var.prowlarr_version
+  version    = "18.22.3"
 
   values = [
     yamlencode({
@@ -24,7 +24,7 @@ resource "helm_release" "flaresolverr" {
   chart      = "flaresolverr"
   namespace  = kubernetes_namespace.media.metadata[0].name
   repository = "oci://tccr.io/truecharts"
-  version    = var.flaresolverr_version
+  version    = "15.5.1"
 
   values = [
     yamlencode({

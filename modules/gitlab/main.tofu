@@ -20,7 +20,7 @@ resource "helm_release" "gitlab" {
   repository = "https://charts.gitlab.io"
   chart      = "gitlab"
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
-  version    = var.gitlab_version
+  version    = "9.0.1"
 
   depends_on = [kubernetes_namespace.gitlab, kubernetes_secret.gitlab_smtp_password]
 
@@ -135,7 +135,7 @@ resource "helm_release" "proton_birdge" {
   repository = "oci://tccr.io/truecharts"
   chart      = "protonmail-bridge"
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
-  version    = var.proton_birdge_version
+  version    = "16.1.0"
 
   depends_on = [kubernetes_namespace.gitlab]
 }
@@ -145,7 +145,7 @@ resource "helm_release" "gitlab_agent" {
   repository = "https://charts.gitlab.io"
   chart      = "gitlab-agent"
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
-  version    = var.gitlab_agent_version
+  version    = "2.15.0"
 
   depends_on = [kubernetes_namespace.gitlab]
 

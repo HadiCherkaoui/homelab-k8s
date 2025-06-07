@@ -4,7 +4,7 @@ resource "helm_release" "overseerr" {
   chart      = "overseerr"
   namespace  = kubernetes_namespace.media.metadata[0].name
   repository = "oci://tccr.io/truecharts"
-  version    = var.overseerr_version
+  version    = "15.6.0"
 
   values = [
     yamlencode({

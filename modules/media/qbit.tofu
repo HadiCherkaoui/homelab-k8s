@@ -21,7 +21,7 @@ resource "helm_release" "qbittorrent" {
   repository = "oci://tccr.io/truecharts"
   chart      = "qbittorrent"
   namespace  = kubernetes_namespace.media.metadata[0].name
-  version    = var.qbittorrent_version
+  version    = "22.5.2"
 
   values = [
     yamlencode({
