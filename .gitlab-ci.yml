@@ -14,7 +14,7 @@ variables:
 before_script:
   - apt-get update && apt-get install -y curl unzip
   - curl -sLo tofu.zip https://github.com/opentofu/opentofu/releases/download/v${TOFU_VERSION}/tofu_${TOFU_VERSION}_linux_amd64.zip
-  - unzip tofu.zip
+  - unzip -o -q tofu.zip
   - mv tofu /usr/local/bin/
   - chmod +x /usr/local/bin/tofu
   - tofu --version
