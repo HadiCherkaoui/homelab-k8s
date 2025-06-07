@@ -69,6 +69,11 @@ variable "openvpn_password" {
   sensitive = true
 }
 
+variable "openvpn_config" {
+  type      = string
+  sensitive = true
+}
+
 variable "notifiarr_apikey" {
   type      = string
   sensitive = true
@@ -93,10 +98,6 @@ variable "laura_hostname" {
 }
 
 variable "quillium_docs_hostname" {
-  type = string
-}
-
-variable "quillium_webhook_hostname" {
   type = string
 }
 

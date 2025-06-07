@@ -10,10 +10,6 @@ variable "quillium_docs_hostname" {
   type = string
 }
 
-variable "quillium_webhook_hostname" {
-  type = string
-}
-
 variable "docs_hostname" {
   type = string
 }

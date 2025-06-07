@@ -46,7 +46,7 @@ module "media" {
 
   openvpn_user         = var.openvpn_user
   openvpn_password     = var.openvpn_password
-  openvpn_config       = file("./.extra/ch-06.protonvpn.udp.ovpn")
+  openvpn_config       = var.openvpn_config
   notifiarr_apikey     = var.notifiarr_apikey
   plex_hostname        = var.plex_hostname
   plex_claim           = var.plex_claim
