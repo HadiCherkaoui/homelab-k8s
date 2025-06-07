@@ -147,10 +147,17 @@ resource "helm_release" "gitlab_agent" {
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
   version    = "2.15.0"
 
-  depends_on = [kubernetes_namespace.gitlab]
+  depends_on = [kubernetes_namespace.gitlab, kubernetes_service_account.gitlab_agent, kubernetes_cluster_role_binding.gitlab_agent_admin]
 
   values = [
     yamlencode({
+      rbac = {
+        create = false
+      }
+      serviceAccount = {
+        create = false
+        name   = kubernetes_service_account.gitlab_agent.metadata[0].name
+      }
       config = {
         kasAddress = "wss://${var.gitlab_kas_hostname}"
         token      = var.gitlab_agent_token
@@ -160,6 +167,31 @@ resource "helm_release" "gitlab_agent" {
       }
     })
   ]
+}
+
+resource "kubernetes_service_account" "gitlab_agent" {
+  metadata {
+    name      = "gitlab-agent"
+    namespace = kubernetes_namespace.gitlab.metadata[0].name
+  }
+}
+
+resource "kubernetes_cluster_role_binding" "gitlab_agent_admin" {
+  metadata {
+    name = "gitlab-agent-cluster-admin-binding"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.gitlab_agent.metadata[0].name
+    namespace = kubernetes_service_account.gitlab_agent.metadata[0].namespace
+  }
 }
 
 resource "kubernetes_manifest" "gitlab_ssh_ingressroutetcp" {

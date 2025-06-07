@@ -1,9 +1,52 @@
-include:
-  - local: 'validate-plan-apply.yml'
+stages:
+  - plan
+  - apply
 
 variables:
-  state_name: 'homelab-k8s'
+  TOFU_VERSION: "1.9.1"
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+  TF_USERNAME: "token"
+  TF_ADDRESS: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/homelab-k8s"
+
+before_script:
+  - curl -sLo tofu.zip https://github.com/opentofu/opentofu/releases/download/v${TOFU_VERSION}/tofu_${TOFU_VERSION}_linux_amd64.zip
+  - unzip tofu.zip
+  - mv tofu /usr/local/bin/
+  - chmod +x /usr/local/bin/tofu
+  - tofu --version
+
+.configure_backend: &configure_backend
+  - tofu init \
+      -backend-config=address=${TF_ADDRESS} \
+      -backend-config=lock_address=${TF_ADDRESS}/lock \
+      -backend-config=unlock_address=${TF_ADDRESS}/lock \
+      -backend-config=username=${TF_USERNAME} \
+      -backend-config=password=${CI_JOB_TOKEN} \
+      -backend-config=lock_method=POST \
+      -backend-config=unlock_method=DELETE \
+      -backend-config=retry_wait_min=5
+
+plan:
+  stage: plan
+  script:
+    - *configure_backend
+    - tofu plan -out=tfplan
+  artifacts:
+    paths:
+      - tfplan
+    expire_in: 1 hour
+  only:
+    - merge_requests
+    - main
 
 apply:
-  before_script:
-    - kubectl config use-context HadiCherkaoui/homelab-k8s:k8s-homelab
+  stage: apply
+  script:
+    - *configure_backend
+    - tofu apply -auto-approve tfplan
+  dependencies:
+    - plan
+  only:
+    - main
+  when: manual
