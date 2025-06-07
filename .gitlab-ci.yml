@@ -1,0 +1,10 @@
+include:
+  - project: 'components/opentofu'
+    file: '/templates/validate-plan-apply.yml'
+
+variables:
+  state_name: 'homelab-k8s'
+
+apply:
+  before_script:
+    - kubectl config use-context HadiCherkaoui/homelab-k8s:k8s-homelab

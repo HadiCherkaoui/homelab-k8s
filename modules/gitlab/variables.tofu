@@ -48,6 +48,6 @@ variable "protonmail_username" {
 }
 
 variable "gitlab_agent_token" {
-  type = string
+  type      = string
   sensitive = true
 }

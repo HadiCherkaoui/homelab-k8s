@@ -27,6 +27,12 @@ resource "helm_release" "gitlab" {
   values = [
     yamlencode({
       global = {
+        appConfig = {
+          terraformState = {
+            enabled = true
+            bucket  = "gitlab-terraform-state"
+          }
+        }
         edition = "ce"
         hosts = {
           domain = var.gitlab_domain
@@ -55,9 +61,6 @@ resource "helm_release" "gitlab" {
           tls = {
             enabled = false
           }
-        }
-        appConfig = {
-          resources = { requests = {} }
         }
         smtp = {
           enabled   = true
@@ -150,7 +153,7 @@ resource "helm_release" "gitlab_agent" {
     yamlencode({
       config = {
         kasAddress = "wss://${var.gitlab_kas_hostname}"
-        token = var.gitlab_agent_token
+        token      = var.gitlab_agent_token
       }
       serviceMonitor = {
         enabled = true
