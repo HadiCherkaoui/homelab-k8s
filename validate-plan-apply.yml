@@ -236,7 +236,7 @@ include:
       needs: []
       allow_failure: $[[ inputs.fmt_allow_failure ]]
       rules: $[[ inputs.fmt_rules ]]
-  - local: '/templates/validate.yml'
+  - local: 'validate.yml'
     rules:
       - if: '"$[[ inputs.trigger_in_child_pipeline ]]" == "false"'
     inputs:
@@ -260,7 +260,7 @@ include:
       enable_id_tokens: $[[ inputs.enable_id_tokens ]]
       id_tokens_base_job_name: $[[ inputs.id_tokens_base_job_name ]]
       id_tokens_setup_script: $[[ inputs.id_tokens_setup_script ]]
-  - local: '/templates/plan.yml'
+  - local: 'plan.yml'
     rules:
       - if: '"$[[ inputs.use_mr_plan ]]" == "true"'
         when: never
@@ -292,7 +292,7 @@ include:
       id_tokens_base_job_name: $[[ inputs.id_tokens_base_job_name ]]
       id_tokens_setup_script: $[[ inputs.id_tokens_setup_script ]]
       post_mr_plan_comment: $[[ inputs.post_mr_plan_comment ]]
-  - local: '/templates/fetch-mr-plan.yml'
+  - local: 'fetch-mr-plan.yml'
     rules:
       - if: '"$[[ inputs.use_mr_plan ]]" == "false"'
         when: never
@@ -319,7 +319,7 @@ include:
       allow_developer_role: $[[ inputs.allow_developer_role_to_plan ]]
       auto_define_backend: $[[ inputs.auto_define_backend ]]
       drift_detection_mode: $[[ inputs.drift_detection_mode ]]
-  - local: '/templates/apply.yml'
+  - local: 'apply.yml'
     rules:
       - if: '"$[[ inputs.trigger_in_child_pipeline ]]" == "false"'
     inputs:
@@ -370,11 +370,7 @@ stages:
   extends: '.$[[ inputs.job_name_prefix ]]$[[ inputs.child_pipeline_name ]]:bridge_job_stage:$[[ inputs.trigger_in_child_pipeline ]]'
   trigger:
     include:
-      # FIXME: this project path may not be correct for forks and mirrors (on self-managed),
-      # so we need to introduce another input for it.
-      # We probably need to split up `image_registry_base` and use parts of it here, too.
-      - project: 'components/opentofu'
-        file: '/templates/validate-plan-apply.yml'
+      - local: 'validate-plan-apply.yml'
         ref: '$[[ inputs.version ]]'
         inputs:
           stage_validate: $[[ inputs.stage_validate ]]
