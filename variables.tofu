@@ -199,12 +199,3 @@ variable "gitlab_agent_token" {
   type      = string
   sensitive = true
 }
-
-variable "gitlab_username" {
-  type = string
-}
-
-variable "gitlab_password" {
-  type      = string
-  sensitive = true
-}
