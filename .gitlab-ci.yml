@@ -1,6 +1,5 @@
 include:
-  - project: 'components/opentofu'
-    file: '/templates/validate-plan-apply.yml'
+  - local: 'validate-plan-apply.yml'
 
 variables:
   state_name: 'homelab-k8s'
