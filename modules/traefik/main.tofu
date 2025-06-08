@@ -24,7 +24,7 @@ resource "kubernetes_manifest" "traefik_security_headers" {
         stsPreload              = true
         customFrameOptionsValue = "SAMEORIGIN"
         referrerPolicy          = "no-referrer-when-downgrade"
-        contentSecurityPolicy   = "default-src 'self' https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://cdnjs.cloudflare.com; connect-src 'self' https:; object-src 'none'; base-uri 'self'; frame-ancestors 'self';"
+        contentSecurityPolicy   = "default-src 'self' https:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://cdnjs.cloudflare.com; connect-src 'self' https:; object-src 'none'; base-uri 'self'; frame-ancestors 'self';"
         permissionsPolicy       = "geolocation=(), microphone=(), camera=(), fullscreen=()"
       }
     }
