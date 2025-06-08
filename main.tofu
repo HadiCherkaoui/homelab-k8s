@@ -52,21 +52,21 @@ module "craftycontroller" {
   source = "./modules/craftycontroller"
 }
 
-module "ai" {
-  source = "./modules/ai"
-
-  github_client_id     = var.github_client_id
-  github_client_secret = var.github_client_secret
-
-  google_client_id     = var.google_client_id
-  google_client_secret = var.google_client_secret
-
-  microsoft_client_id     = var.microsoft_client_id
-  microsoft_client_secret = var.microsoft_client_secret
-  microsoft_tenant_id     = var.microsoft_tenant_id
-
-  openwebui_hostname = var.openwebui_hostname
-}
+#module "ai" {
+#  source = "./modules/ai"
+#
+#  github_client_id     = var.github_client_id
+#  github_client_secret = var.github_client_secret
+#
+#  google_client_id     = var.google_client_id
+#  google_client_secret = var.google_client_secret
+#
+#  microsoft_client_id     = var.microsoft_client_id
+#  microsoft_client_secret = var.microsoft_client_secret
+#  microsoft_tenant_id     = var.microsoft_tenant_id
+#
+#  openwebui_hostname = var.openwebui_hostname
+#}
 
 module "paperless" {
   source = "./modules/paperless"

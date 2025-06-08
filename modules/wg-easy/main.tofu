@@ -10,7 +10,7 @@ resource "helm_release" "wg_easy" {
   chart      = "wg-easy"
   namespace  = kubernetes_namespace.vpn.metadata[0].name
   repository = "oci://tccr.io/truecharts"
-  version    = "17.0.0"
+  version    = "16.4.2"
 
   values = [
     yamlencode({

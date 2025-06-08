@@ -152,7 +152,7 @@ resource "helm_release" "gitlab_agent" {
   values = [
     yamlencode({
       rbac = {
-        create = false
+        create = true
       }
       serviceAccount = {
         create = false
@@ -191,6 +191,24 @@ resource "kubernetes_cluster_role_binding" "gitlab_agent_admin" {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account.gitlab_agent.metadata[0].name
     namespace = kubernetes_service_account.gitlab_agent.metadata[0].namespace
+  }
+}
+
+resource "kubernetes_cluster_role_binding" "gitlab_default_admin" {
+  metadata {
+    name = "gitlab-default-cluster-admin-binding"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = "default"
+    namespace = kubernetes_namespace.gitlab.metadata[0].name
   }
 }
 
