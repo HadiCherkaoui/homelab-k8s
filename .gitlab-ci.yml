@@ -40,3 +40,4 @@ apply:
     - plan
   only:
     - main
+  when: manual
