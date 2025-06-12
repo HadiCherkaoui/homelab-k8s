@@ -20,7 +20,7 @@ resource "helm_release" "gitlab" {
   repository = "https://charts.gitlab.io"
   chart      = "gitlab"
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
-  version    = "9.0.1"
+  version    = "9.0.2"
 
   depends_on = [kubernetes_namespace.gitlab, kubernetes_secret.gitlab_smtp_password]
 
