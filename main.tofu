@@ -89,10 +89,3 @@ module "gitlab" {
   protonmail_username      = var.protonmail_username
   gitlab_agent_token       = var.gitlab_agent_token
 }
-
-module "rancher" {
-  source = "./modules/rancher"
-
-  rancher_hostname           = var.rancher_hostname
-  rancher_bootstrap_password = var.rancher_bootstrap_password
-}
