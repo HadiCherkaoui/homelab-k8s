@@ -199,3 +199,12 @@ variable "gitlab_agent_token" {
   type      = string
   sensitive = true
 }
+
+variable "rancher_hostname" {
+  type = string
+}
+
+variable "rancher_bootstrap_password" {
+  type      = string
+  sensitive = true
+}
