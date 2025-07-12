@@ -1,24 +1,24 @@
 resource "kubernetes_deployment" "cherkaoui_homepage" {
   depends_on = [kubernetes_namespace.websites]
   metadata {
-    name      = "cherkaoui_homepage"
+    name      = "cherkaoui-homepage"
     namespace = kubernetes_namespace.websites.metadata[0].name
   }
   spec {
     selector {
       match_labels = {
-        app = "cherkaoui_homepage"
+        app = "cherkaoui-homepage"
       }
     }
     template {
       metadata {
         labels = {
-          app = "cherkaoui_homepage"
+          app = "cherkaoui-homepage"
         }
       }
       spec {
         container {
-          name  = "cherkaoui_homepage"
+          name  = "cherkaoui-homepage"
           image = "registry.cherkaoui.ch/hadicherkaoui/cherkaoui-homepage:latest"
           port {
             container_port = 3000
@@ -31,12 +31,12 @@ resource "kubernetes_deployment" "cherkaoui_homepage" {
 }
 resource "kubernetes_service" "cherkaoui_homepage" {
   metadata {
-    name      = "cherkaoui_homepage"
+    name      = "cherkaoui-homepage"
     namespace = kubernetes_namespace.websites.metadata[0].name
   }
   spec {
     selector = {
-      app = "cherkaoui_homepage"
+      app = "cherkaoui-homepage"
     }
     type = "ClusterIP"
     port {
@@ -54,7 +54,7 @@ resource "kubernetes_manifest" "cherkaoui_homepage_ingressroute" {
     apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
     metadata = {
-      name      = "cherkaoui_homepage"
+      name      = "cherkaoui-homepage"
       namespace = kubernetes_namespace.websites.metadata[0].name
       annotations = {
         "traefik.ingress.kubernetes.io/router.entrypoints"      = "websecure"
@@ -76,7 +76,7 @@ resource "kubernetes_manifest" "cherkaoui_homepage_ingressroute" {
           ]
           services = [
             {
-              name = "cherkaoui_homepage"
+              name = "cherkaoui-homepage"
               port = 3000
             }
           ]
