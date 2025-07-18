@@ -4,8 +4,25 @@ resource "kubernetes_namespace" "n8n" {
   }
 }
 
+resource "kubernetes_persistent_volume_claim" "n8n" {
+  depends_on       = [kubernetes_namespace.n8n]
+  wait_until_bound = false
+  metadata {
+    name      = "n8n"
+    namespace = kubernetes_namespace.n8n.metadata[0].name
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "1Gi"
+      }
+    }
+  }
+}
+
 resource "helm_release" "n8n" {
-  depends_on = [kubernetes_namespace.n8n]
+  depends_on = [kubernetes_namespace.n8n, kubernetes_persistent_volume_claim.n8n]
   name       = "n8n"
   repository = "oci://8gears.container-registry.com/library"
   chart      = "n8n"
@@ -15,11 +32,10 @@ resource "helm_release" "n8n" {
   values = [
     yamlencode({
       main = {
-        redis = {
+        persistence = {
           enabled = true
-        }
-        scaling = {
-          enabled = true
+          type    = "existing"
+          existingClaim = "n8n"
         }
       }
     })
