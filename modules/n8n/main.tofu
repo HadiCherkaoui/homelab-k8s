@@ -14,19 +14,11 @@ resource "helm_release" "n8n" {
 
   values = [
     yamlencode({
-      scaling = {
-        enabled = true
-      }
-      redis = {
-        enabled = true
-      }
       main = {
-        persistence = {
+        redis = {
           enabled = true
         }
-      }
-      worker = {
-        persistence = {
+        scaling = {
           enabled = true
         }
       }
