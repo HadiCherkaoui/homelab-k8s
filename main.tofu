@@ -89,3 +89,7 @@ module "gitlab" {
   protonmail_username      = var.protonmail_username
   gitlab_agent_token       = var.gitlab_agent_token
 }
+
+module "n8n" {
+  source = "./modules/n8n"
+}
