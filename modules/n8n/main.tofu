@@ -12,24 +12,26 @@ resource "helm_release" "n8n" {
   namespace  = kubernetes_namespace.n8n.metadata[0].name
   version    = "1.0.10"
 
-  values = yamlencode({
-    scaling = {
-      enabled = true
-    }
-    redis = {
-      enabled = true
-    }
-    main = {
-      persistence = {
+  values = [
+    yamlencode({
+      scaling = {
         enabled = true
       }
-    }
-    worker = {
-      persistence = {
+      redis = {
         enabled = true
       }
-    }
-  })
+      main = {
+        persistence = {
+          enabled = true
+        }
+      }
+      worker = {
+        persistence = {
+          enabled = true
+        }
+      }
+    })
+  ]
 }
 
 resource "kubernetes_manifest" "n8n_ingressroute" {
