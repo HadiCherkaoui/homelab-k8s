@@ -5,7 +5,7 @@ resource "kubernetes_namespace" "openwebui" {
 }
 
 resource "kubernetes_deployment" "openwebui" {
-  depends_on = [kubernetes_persistent_volume_claim.openwebui]
+  depends_on = [kubernetes_persistent_volume_claim.openwebui, kubernetes_namespace.openwebui]
 
   metadata {
     name      = "openwebui"
@@ -81,6 +81,7 @@ resource "kubernetes_deployment" "openwebui" {
 }
 
 resource "kubernetes_persistent_volume_claim" "openwebui" {
+  depends_on = [kubernetes_namespace.openwebui]
   metadata {
     name      = "openwebui"
     namespace = kubernetes_namespace.openwebui.metadata[0].name
@@ -149,7 +150,7 @@ resource "kubernetes_manifest" "openwebui_ingressroute" {
           ]
           services = [
             {
-              name = "open-webui"
+              name = "openwebui"
               port = "http"
             }
           ]
