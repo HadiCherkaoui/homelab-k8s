@@ -4,37 +4,119 @@ resource "kubernetes_namespace" "openwebui" {
   }
 }
 
-resource "helm_release" "openwebui" {
-  depends_on = [kubernetes_namespace.openwebui]
+resource "kubernetes_deployment" "openwebui" {
+  depends_on = [kubernetes_persistent_volume_claim.openwebui]
 
-  name       = "openwebui"
-  repository = "https://helm.openwebui.com"
-  chart      = "open-webui"
-  namespace  = kubernetes_namespace.openwebui.metadata[0].name
+  metadata {
+    name      = "openwebui"
+    namespace = kubernetes_namespace.openwebui.metadata[0].name
+  }
 
-  values = [
-    yamlencode({
-      sso = {
-        enabled = true
-        github = {
-          enabled      = true
-          clientId     = var.github_client_id
-          clientSecret = var.github_client_secret
-        }
-        google = {
-          enabled      = true
-          clientId     = var.google_client_id
-          clientSecret = var.google_client_secret
-        }
-        microsoft = {
-          enabled      = true
-          clientId     = var.microsoft_client_id
-          clientSecret = var.microsoft_client_secret
-          tenantId     = var.microsoft_tenant_id
+  spec {
+    selector {
+      match_labels = {
+        app = "openwebui"
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = "openwebui"
         }
       }
-    })
-  ]
+      spec {
+        container {
+          name  = "openwebui"
+          image = "ghcr.io/open-webui/open-webui:main"
+          port {
+            container_port = 8080
+            name           = "http"
+          }
+          volume_mount {
+            name       = "openwebui"
+            mount_path = "/app/backend/data"
+          }
+          env {
+            name = "ENABLE_OAUTH_SIGNUP"
+            value = true
+          }
+          env {
+            name = "GOOGLE_CLIENT_ID"
+            value = var.google_client_id
+          }
+          env {
+            name = "GOOGLE_CLIENT_SECRET"
+            value = var.google_client_secret
+          }
+          env {
+            name = "GITHUB_CLIENT_ID"
+            value = var.github_client_id
+          }
+          env {
+            name = "GITHUB_CLIENT_SECRET"
+            value = var.github_client_secret
+          }
+          env {
+            name = "MICROSOFT_CLIENT_ID"
+            value = var.microsoft_client_id
+          }
+          env {
+            name = "MICROSOFT_CLIENT_SECRET"
+            value = var.microsoft_client_secret
+          }
+          env {
+            name = "MICROSOFT_TENANT_ID"
+            value = var.microsoft_tenant_id
+          }
+        }
+        volume {
+          name = "openwebui"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.openwebui.metadata[0].name
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_persistent_volume_claim" "openwebui" {
+  metadata {
+    name      = "openwebui"
+    namespace = kubernetes_namespace.openwebui.metadata[0].name
+  }
+
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "5Gi"
+      }
+    }
+  }
+  wait_until_bound = false
+}
+
+resource "kubernetes_service" "openwebui" {
+  depends_on = [kubernetes_deployment.openwebui]
+
+  metadata {
+    name      = "openwebui"
+    namespace = kubernetes_namespace.openwebui.metadata[0].name
+  }
+
+  spec {
+    selector = {
+      app = "openwebui"
+    }
+    type = "ClusterIP"
+    port {
+      name        = "http"
+      port        = 8080
+      target_port = 8080
+      protocol    = "TCP"
+    }
+  }
 }
 
 resource "kubernetes_manifest" "openwebui_ingressroute" {
