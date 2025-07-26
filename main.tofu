@@ -46,6 +46,7 @@ module "media" {
   notifiarr_apikey = var.notifiarr_apikey
   plex_hostname    = var.plex_hostname
   plex_claim       = var.plex_claim
+  jellyfin_hostname = var.jellyfin_hostname
 }
 
 module "craftycontroller" {

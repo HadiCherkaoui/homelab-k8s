@@ -18,7 +18,7 @@ resource "kubernetes_manifest" "media_servicemonitor" {
           {
             key      = "app.kubernetes.io/name"
             operator = "In"
-            values   = ["prowlarr", "radarr", "sonarr"]
+            values   = ["prowlarr", "radarr", "sonarr", "jellyfin"]
           }
         ]
       }

@@ -11,6 +11,12 @@ variable "plex_hostname" {
   default     = "plex.local.lab"
 }
 
+variable "jellyfin_hostname" {
+  description = "Hostname for Jellyfin"
+  type        = string
+  default     = "jellyfin.local.lab"
+}
+
 variable "notifiarr_apikey" {
   description = "Notifiarr API key"
   type        = string

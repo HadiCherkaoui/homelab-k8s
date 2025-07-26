@@ -22,6 +22,12 @@ variable "plex_hostname" {
   default     = "plex.local.lab"
 }
 
+variable "jellyfin_hostname" {
+  description = "Hostname for Jellyfin"
+  type        = string
+  default     = "jellyfin.local.lab"
+}
+
 variable "plex_claim" {
   description = "Plex claim"
   type        = string
