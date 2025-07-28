@@ -30,8 +30,10 @@ plan:
     - tofu plan -out=planfile
     - |
         tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $TRIGGER_APPLY != "true"'
+      when: always
+    - when: never
 
 apply:
   stage: apply
