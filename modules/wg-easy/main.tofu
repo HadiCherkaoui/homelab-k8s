@@ -26,30 +26,6 @@ resource "helm_release" "wg_easy" {
           podSpec = {
             hostNetwork = true
             dnsPolicy   = "ClusterFirstWithHostNet"
-            securityContext = {
-              sysctls = [
-                {
-                  name  = "net.ipv4.ip_forward"
-                  value = "1"
-                },
-                {
-                  name  = "net.ipv4.conf.all.src_valid_mark"
-                  value = "1"
-                },
-                {
-                  name  = "net.ipv6.conf.all.disable_ipv6"
-                  value = "0"
-                },
-                {
-                  name  = "net.ipv6.conf.all.forwarding"
-                  value = "1"
-                },
-                {
-                  name  = "net.ipv6.conf.default.forwarding"
-                  value = "1"
-                }
-              ]
-            }
             containers = {
               main = {
                 securityContext = {
