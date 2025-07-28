@@ -37,35 +37,35 @@ resource "kubernetes_deployment" "openwebui" {
             mount_path = "/app/backend/data"
           }
           env {
-            name = "ENABLE_OAUTH_SIGNUP"
+            name  = "ENABLE_OAUTH_SIGNUP"
             value = true
           }
           env {
-            name = "GOOGLE_CLIENT_ID"
+            name  = "GOOGLE_CLIENT_ID"
             value = var.google_client_id
           }
           env {
-            name = "GOOGLE_CLIENT_SECRET"
+            name  = "GOOGLE_CLIENT_SECRET"
             value = var.google_client_secret
           }
           env {
-            name = "GITHUB_CLIENT_ID"
+            name  = "GITHUB_CLIENT_ID"
             value = var.github_client_id
           }
           env {
-            name = "GITHUB_CLIENT_SECRET"
+            name  = "GITHUB_CLIENT_SECRET"
             value = var.github_client_secret
           }
           env {
-            name = "MICROSOFT_CLIENT_ID"
+            name  = "MICROSOFT_CLIENT_ID"
             value = var.microsoft_client_id
           }
           env {
-            name = "MICROSOFT_CLIENT_SECRET"
+            name  = "MICROSOFT_CLIENT_SECRET"
             value = var.microsoft_client_secret
           }
           env {
-            name = "MICROSOFT_TENANT_ID"
+            name  = "MICROSOFT_TENANT_ID"
             value = var.microsoft_tenant_id
           }
         }

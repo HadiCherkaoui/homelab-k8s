@@ -22,8 +22,8 @@ resource "helm_release" "wg_easy" {
         }
       }
       resources = {
-        limits   = {cpu = "", memory = ""}
-        requests = {cpu = "", memory = ""}
+        limits   = null
+        requests = null
       }
       workload = {
         main = {

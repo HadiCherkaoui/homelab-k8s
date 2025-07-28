@@ -18,8 +18,8 @@ resource "helm_release" "notifiarr" {
         apikey = var.notifiarr_apikey
       }
       resources = {
-        limits   = {cpu = "", memory = ""}
-        requests = {cpu = "", memory = ""}
+        limits   = null
+        requests = null
       }
     })
   ]

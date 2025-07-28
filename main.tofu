@@ -40,12 +40,12 @@ module "monitoring" {
 module "media" {
   source = "./modules/media"
 
-  openvpn_user     = var.openvpn_user
-  openvpn_password = var.openvpn_password
-  openvpn_config   = var.openvpn_config
-  notifiarr_apikey = var.notifiarr_apikey
-  plex_hostname    = var.plex_hostname
-  plex_claim       = var.plex_claim
+  openvpn_user      = var.openvpn_user
+  openvpn_password  = var.openvpn_password
+  openvpn_config    = var.openvpn_config
+  notifiarr_apikey  = var.notifiarr_apikey
+  plex_hostname     = var.plex_hostname
+  plex_claim        = var.plex_claim
   jellyfin_hostname = var.jellyfin_hostname
 }
 

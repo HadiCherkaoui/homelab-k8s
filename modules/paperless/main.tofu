@@ -77,8 +77,8 @@ resource "helm_release" "paperless" {
   values = [
     yamlencode({
       resources = {
-        limits   = {cpu = "", memory = ""}
-        requests = {cpu = "", memory = ""}
+        limits   = null
+        requests = null
       }
       persistence = {
         data = {

@@ -36,8 +36,8 @@ resource "helm_release" "n8n" {
           host = var.n8n_hostname
         }
         persistence = {
-          enabled = true
-          type    = "existing"
+          enabled       = true
+          type          = "existing"
           existingClaim = "n8n"
         }
       }

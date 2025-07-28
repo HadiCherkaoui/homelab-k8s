@@ -43,8 +43,8 @@ resource "helm_release" "plex" {
         }
       }
       resources = {
-        limits   = {cpu = "", memory = ""}
-        requests = {cpu = "", memory = ""}
+        limits   = null
+        requests = null
       }
     })
   ]

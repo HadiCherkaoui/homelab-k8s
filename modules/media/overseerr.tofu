@@ -15,8 +15,8 @@ resource "helm_release" "overseerr" {
         }
       }
       resources = {
-        limits   = {cpu = "", memory = ""}
-        requests = {cpu = "", memory = ""}
+        limits   = null
+        requests = null
       }
     })
   ]
