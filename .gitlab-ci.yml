@@ -10,6 +10,7 @@ variables:
   TF_INPUT: "false"
   TF_USERNAME: "gitlab-ci-token"
   TF_ADDRESS: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/homelab-k8s"
+  N8N_WEBHOOK_URL: "${N8N_WEBHOOK_URL}"
 
 before_script:
   - apt-get update && apt-get install -y curl unzip
@@ -27,7 +28,8 @@ plan:
   script:
     - *configure_backend
     - tofu plan -out=planfile
-    - tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL
+    - |
+        tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL"
   only:
     - main
 
