@@ -34,11 +34,9 @@ resource "helm_release" "wg_easy" {
                   }
                 }
                 env = {
-                  # v15 uses minimal environment variables
-                  # Most configuration is done via web UI
                   PORT     = 51821
                   HOST     = "0.0.0.0"
-                  INSECURE = false
+                  INSECURE = true
                 }
               }
             }
