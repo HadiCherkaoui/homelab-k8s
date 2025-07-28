@@ -40,8 +40,6 @@ apply:
   script:
     - *configure_backend
     - tofu apply -auto-approve
-    - chmod +x ./remove-resource-limits.sh
-    - ./remove-resource-limits.sh
   dependencies:
     - plan
   rules:
