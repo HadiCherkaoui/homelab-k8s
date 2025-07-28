@@ -8,6 +8,10 @@ resource "helm_release" "sonarr" {
 
   values = [
     yamlencode({
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
       persistence = {
         config = {
           enabled = true

@@ -25,6 +25,10 @@ resource "helm_release" "qbittorrent" {
 
   values = [
     yamlencode({
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
       podOptions = {
         dnsPolicy = "None"
         dnsConfig = {

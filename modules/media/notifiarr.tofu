@@ -17,6 +17,10 @@ resource "helm_release" "notifiarr" {
       notifiarr = {
         apikey = var.notifiarr_apikey
       }
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
     })
   ]
 }

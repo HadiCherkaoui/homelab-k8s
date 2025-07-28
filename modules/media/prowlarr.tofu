@@ -14,6 +14,10 @@ resource "helm_release" "prowlarr" {
           size    = "2Gi"
         }
       }
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
     })
   ]
 }

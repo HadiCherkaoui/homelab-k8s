@@ -34,7 +34,6 @@ resource "helm_release" "n8n" {
       main = {
         config = {
           host = var.n8n_hostname
-          port = 443
         }
         persistence = {
           enabled = true

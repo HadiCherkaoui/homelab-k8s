@@ -21,6 +21,10 @@ resource "helm_release" "wg_easy" {
           size      = "1Gi"
         }
       }
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
       workload = {
         main = {
           podSpec = {

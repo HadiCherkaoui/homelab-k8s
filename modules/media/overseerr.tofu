@@ -14,6 +14,10 @@ resource "helm_release" "overseerr" {
           size    = "1Gi"
         }
       }
+      resources = {
+        limits   = {cpu = "", memory = ""}
+        requests = {cpu = "", memory = ""}
+      }
     })
   ]
 }
