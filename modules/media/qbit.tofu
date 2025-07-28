@@ -57,6 +57,11 @@ resource "helm_release" "qbittorrent" {
           killSwitch            = true
           excludedNetworks_IPv4 = ["192.168.1.0/24"]
           excludedNetworks_IPv6 = []
+          securityContext = {
+            capabilities = {
+              add = ["NET_ADMIN", "SYS_MODULE"]
+            }
+          }
           env = {
             DNS_ADDRESS               = "1.1.1.1"
             FIREWALL_OUTBOUND_SUBNETS = "1.1.1.1/32,172.16.0.0/16,172.17.0.0/16,192.168.1.0/24,104.16.132.229/32,10.2.0.0/16"
@@ -68,6 +73,8 @@ resource "helm_release" "qbittorrent" {
             OPENVPN_PASSWORD          = var.openvpn_password
             OPENVPN_CONFIG            = var.openvpn_config
             FIREWALL_VPN_INPUT_PORTS  = "59241"
+            PUID                      = "568"
+            PGID                      = "568"
           }
         }
       }
