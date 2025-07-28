@@ -4,7 +4,7 @@ resource "helm_release" "prowlarr" {
   chart      = "prowlarr"
   namespace  = kubernetes_namespace.media.metadata[0].name
   repository = "oci://tccr.io/truecharts"
-  version    = "18.22.3"
+  version    = "20.1.1"
 
   values = [
     yamlencode({

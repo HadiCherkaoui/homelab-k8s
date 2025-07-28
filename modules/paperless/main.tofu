@@ -72,7 +72,7 @@ resource "helm_release" "paperless" {
   repository = "oci://tccr.io/truecharts"
   chart      = "paperless-ngx"
   namespace  = kubernetes_namespace.paperless.metadata[0].name
-  version    = "10.1.2"
+  version    = "11.3.0"
 
   values = [
     yamlencode({

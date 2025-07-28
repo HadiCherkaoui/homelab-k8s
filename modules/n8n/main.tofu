@@ -32,6 +32,10 @@ resource "helm_release" "n8n" {
   values = [
     yamlencode({
       main = {
+        config = {
+          host = var.n8n_hostname
+          port = 443
+        }
         persistence = {
           enabled = true
           type    = "existing"

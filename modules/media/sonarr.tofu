@@ -4,7 +4,7 @@ resource "helm_release" "sonarr" {
   repository = "oci://tccr.io/truecharts"
   chart      = "sonarr"
   namespace  = kubernetes_namespace.media.metadata[0].name
-  version    = "23.8.1"
+  version    = "24.1.0"
 
   values = [
     yamlencode({

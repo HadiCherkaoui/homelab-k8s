@@ -135,7 +135,7 @@ resource "helm_release" "proton_birdge" {
   repository = "oci://tccr.io/truecharts"
   chart      = "protonmail-bridge"
   namespace  = kubernetes_namespace.gitlab.metadata[0].name
-  version    = "16.1.0"
+  version    = "17.1.0"
 
   depends_on = [kubernetes_namespace.gitlab]
 }
