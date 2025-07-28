@@ -62,8 +62,9 @@ resource "helm_release" "qbittorrent" {
               add = ["NET_ADMIN", "SYS_MODULE"]
             }
           }
-          containers = {
+          container = {
             env = {
+              FIREWALL                  = "on"
               DNS_ADDRESS               = "1.1.1.1"
               FIREWALL_OUTBOUND_SUBNETS = "1.1.1.1/32,172.16.0.0/16,172.17.0.0/16,192.168.1.0/24,104.16.132.229/32,10.2.0.0/16"
               DNS_KEEP_NAMESERVER       = "off"
