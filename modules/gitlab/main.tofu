@@ -165,50 +165,6 @@ resource "helm_release" "gitlab_agent" {
       serviceMonitor = {
         enabled = true
       }
-      gitlab-runner = {
-        runners = {
-          config = <<EOF
-          [[runners]]
-      name = "k8s-runner"
-      executor = "kubernetes"
-      
-      [runners.kubernetes]
-      image = "ubuntu:22.04"
-      privileged = false
-
-      [[runners.kubernetes.services]]
-      name = "docker:24.0.5-dind"
-      privileged = true
-      command = ["--mtu=1450"]
-
-      [runners.kubernetes.volumes.empty_dir]
-      name = "docker-certs"
-      mount_path = "/certs/client"
-      medium = "Memory"
-
-      [runners.kubernetes.volumes.empty_dir]
-      name = "docker-graph-storage"
-      mount_path = "/var/lib/docker"
-
-      environment = [
-        "DOCKER_TLS_CERTDIR=/certs",
-        "DOCKER_HOST=tcp://docker:2376",
-        "DOCKER_TLS_VERIFY=1",
-        "DOCKER_CERT_PATH=/certs/client"
-      ]
-
-  {{- if .Values.global.minio.enabled }}
-  cache:
-    type: s3
-    s3:
-      serverAddress: {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
-      bucketName: "runner-cache"
-      bucketLocation: "us-east-1"
-      insecure: false
-  {{ end }}
-          EOF
-        }
-      }
     })
   ]
 }
