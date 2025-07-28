@@ -62,19 +62,21 @@ resource "helm_release" "qbittorrent" {
               add = ["NET_ADMIN", "SYS_MODULE"]
             }
           }
-          env = {
-            DNS_ADDRESS               = "1.1.1.1"
-            FIREWALL_OUTBOUND_SUBNETS = "1.1.1.1/32,172.16.0.0/16,172.17.0.0/16,192.168.1.0/24,104.16.132.229/32,10.2.0.0/16"
-            DNS_KEEP_NAMESERVER       = "off"
-            VPN_TYPE                  = "openvpn"
-            VPN_SERVICE_PROVIDER      = "protonvpn"
-            VPN_PORT_FORWARDING       = "on"
-            OPENVPN_USER              = var.openvpn_user
-            OPENVPN_PASSWORD          = var.openvpn_password
-            OPENVPN_CONFIG            = var.openvpn_config
-            FIREWALL_VPN_INPUT_PORTS  = "59241"
-            PUID                      = "568"
-            PGID                      = "568"
+          containers = {
+            env = {
+              DNS_ADDRESS               = "1.1.1.1"
+              FIREWALL_OUTBOUND_SUBNETS = "1.1.1.1/32,172.16.0.0/16,172.17.0.0/16,192.168.1.0/24,104.16.132.229/32,10.2.0.0/16"
+              DNS_KEEP_NAMESERVER       = "off"
+              VPN_TYPE                  = "openvpn"
+              VPN_SERVICE_PROVIDER      = "protonvpn"
+              VPN_PORT_FORWARDING       = "on"
+              OPENVPN_USER              = var.openvpn_user
+              OPENVPN_PASSWORD          = var.openvpn_password
+              OPENVPN_CONFIG            = var.openvpn_config
+              FIREWALL_VPN_INPUT_PORTS  = "59241"
+              PUID                      = "568"
+              PGID                      = "568"
+            }
           }
         }
       }

@@ -26,16 +26,43 @@ resource "helm_release" "wg_easy" {
           podSpec = {
             hostNetwork = true
             dnsPolicy   = "ClusterFirstWithHostNet"
+            securityContext = {
+              sysctls = [
+                {
+                  name  = "net.ipv4.ip_forward"
+                  value = "1"
+                },
+                {
+                  name  = "net.ipv4.conf.all.src_valid_mark"
+                  value = "1"
+                },
+                {
+                  name  = "net.ipv6.conf.all.disable_ipv6"
+                  value = "0"
+                },
+                {
+                  name  = "net.ipv6.conf.all.forwarding"
+                  value = "1"
+                },
+                {
+                  name  = "net.ipv6.conf.default.forwarding"
+                  value = "1"
+                }
+              ]
+            }
             containers = {
               main = {
+                securityContext = {
+                  capabilities = {
+                    add = ["NET_ADMIN", "SYS_MODULE"]
+                  }
+                }
                 env = {
-                  WG_DEFAULT_DNS   = "10.96.0.10"
-                  PASSWORD_HASH    = var.wg_easy_password_hash
-                  WG_HOST          = var.wg_easy_hostname
-                  WG_PORT          = 51820
-                  UI_TRAFFIC_STATS = true
-                  WG_ALLOWED_IPS   = "10.0.0.0/8,0.0.0.0/0"
-                  WG_MTU           = 1420
+                  # v15 uses minimal environment variables
+                  # Most configuration is done via web UI
+                  PORT     = 51821
+                  HOST     = "0.0.0.0"
+                  INSECURE = false
                 }
               }
             }

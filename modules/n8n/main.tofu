@@ -33,7 +33,8 @@ resource "helm_release" "n8n" {
     yamlencode({
       main = {
         config = {
-          host = var.n8n_hostname
+          WEBHOOK_URL  = "${var.n8n_webhook_url}"
+          N8N_PROTOCOL = "https"
         }
         persistence = {
           enabled       = true
