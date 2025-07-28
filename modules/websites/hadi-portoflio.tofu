@@ -27,10 +27,14 @@ resource "kubernetes_deployment" "hadi" {
       spec {
         container {
           name  = "hadi"
-          image = "ghcr.io/hadicherkaoui/portfolio:latest"
+          image = "registry.cherkaoui.ch/hadicherkaoui/portfolio:latest"
           port {
             container_port = 3000
             name           = "main"
+          }
+          env {
+            name  = "NEXT_PUBLIC_DISCORD_WEBHOOK_URL"
+            value = var.next_public_discord_webhook_url
           }
         }
       }

@@ -20,10 +20,11 @@ module "storage" {
 module "websites" {
   source = "./modules/websites"
 
-  hadi_hostname          = var.hadi_hostname
-  laura_hostname         = var.laura_hostname
-  quillium_docs_hostname = var.quillium_docs_hostname
-  docs_hostname          = var.docs_hostname
+  hadi_hostname                   = var.hadi_hostname
+  laura_hostname                  = var.laura_hostname
+  quillium_docs_hostname          = var.quillium_docs_hostname
+  docs_hostname                   = var.docs_hostname
+  next_public_discord_webhook_url = var.next_public_discord_webhook_url
 }
 
 module "monitoring" {

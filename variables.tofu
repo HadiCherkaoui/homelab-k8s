@@ -205,3 +205,8 @@ variable "gitlab_agent_token" {
   type      = string
   sensitive = true
 }
+
+variable "next_public_discord_webhook_url" {
+  type      = string
+  sensitive = true
+}
