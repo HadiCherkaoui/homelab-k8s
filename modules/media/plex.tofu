@@ -42,10 +42,6 @@ resource "helm_release" "plex" {
           }
         }
       }
-      resources = {
-        limits   = null
-        requests = null
-      }
     })
   ]
 }

@@ -138,15 +138,6 @@ resource "helm_release" "proton_birdge" {
   version    = "17.1.0"
 
   depends_on = [kubernetes_namespace.gitlab]
-
-  values = [
-    yamlencode({
-      resources = {
-        limits   = null
-        requests = null
-      }
-    })
-  ]
 }
 
 resource "helm_release" "gitlab_agent" {

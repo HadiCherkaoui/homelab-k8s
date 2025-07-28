@@ -73,13 +73,9 @@ resource "helm_release" "paperless" {
   chart      = "paperless-ngx"
   namespace  = kubernetes_namespace.paperless.metadata[0].name
   version    = "11.3.0"
-
+gluetun
   values = [
     yamlencode({
-      resources = {
-        limits   = null
-        requests = null
-      }
       persistence = {
         data = {
           enabled       = true

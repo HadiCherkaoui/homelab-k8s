@@ -21,10 +21,6 @@ resource "helm_release" "wg_easy" {
           size      = "1Gi"
         }
       }
-      resources = {
-        limits   = null
-        requests = null
-      }
       workload = {
         main = {
           podSpec = {

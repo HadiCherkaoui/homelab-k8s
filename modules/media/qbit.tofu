@@ -25,10 +25,6 @@ resource "helm_release" "qbittorrent" {
 
   values = [
     yamlencode({
-      resources = {
-        limits   = null
-        requests = null
-      }
       podOptions = {
         dnsPolicy = "None"
         dnsConfig = {
@@ -55,7 +51,7 @@ resource "helm_release" "qbittorrent" {
         }
       }
       addons = {
-        vpn = {
+        gluetun = {
           enabled               = true
           type                  = "gluetun"
           killSwitch            = true

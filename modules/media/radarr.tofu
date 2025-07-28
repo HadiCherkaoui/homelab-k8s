@@ -8,10 +8,6 @@ resource "helm_release" "radarr" {
 
   values = [
     yamlencode({
-      resources = {
-        limits   = null
-        requests = null
-      }
       persistence = {
         config = {
           enabled = true

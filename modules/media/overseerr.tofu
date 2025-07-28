@@ -14,10 +14,6 @@ resource "helm_release" "overseerr" {
           size    = "1Gi"
         }
       }
-      resources = {
-        limits   = null
-        requests = null
-      }
     })
   ]
 }

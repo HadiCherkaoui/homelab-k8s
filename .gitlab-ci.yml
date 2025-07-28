@@ -40,6 +40,11 @@ apply:
   script:
     - *configure_backend
     - tofu apply -auto-approve
+    - chmod +x ./remove-resource-limits.sh
+    - ./remove-resource-limits.sh
   dependencies:
     - plan
-  when: manual
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $TRIGGER_APPLY == "true"'
+      when: always
+    - when: never
