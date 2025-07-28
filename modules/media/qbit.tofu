@@ -75,8 +75,6 @@ resource "helm_release" "qbittorrent" {
               OPENVPN_PASSWORD          = var.openvpn_password
               OPENVPN_CONFIG            = var.openvpn_config
               FIREWALL_VPN_INPUT_PORTS  = "59241"
-              PUID                      = "568"
-              PGID                      = "568"
             }
           }
         }
