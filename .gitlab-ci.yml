@@ -29,7 +29,7 @@ plan:
     - *configure_backend
     - tofu plan -out=planfile
     - |
-        tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL"
+        tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL
   only:
     - main
 
