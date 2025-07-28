@@ -13,8 +13,3 @@ variable "quillium_docs_hostname" {
 variable "docs_hostname" {
   type = string
 }
-
-variable "next_public_discord_webhook_url" {
-  type      = string
-  sensitive = true
-}
