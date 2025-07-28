@@ -40,9 +40,7 @@ apply:
     - tofu apply -auto-approve
   dependencies:
     - plan
-  only:
-    - main
   rules:
-    - if: '$TRIGGER_APPLY == "true"'
+    - if: '$CI_COMMIT_BRANCH == "main" && $TRIGGER_APPLY == "true"'
       when: always
     - when: never
