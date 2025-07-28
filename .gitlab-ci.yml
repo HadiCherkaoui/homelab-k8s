@@ -26,9 +26,9 @@ plan:
   stage: plan
   script:
     - *configure_backend
-    - tofu plan
+    - tofu plan -out=planfile
+    - tofu show -json planfile | curl -X POST -H "Content-Type: application/json" -d @- $N8N_WEBHOOK_URL
   only:
-    - merge_requests
     - main
 
 apply:
@@ -40,4 +40,7 @@ apply:
     - plan
   only:
     - main
-  when: manual
+  rules:
+    - if: '$TRIGGER_APPLY == "true"'
+      when: always
+    - when: never
