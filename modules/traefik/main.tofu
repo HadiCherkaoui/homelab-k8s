@@ -116,10 +116,11 @@ resource "helm_release" "traefik" {
         }
       }
 
-      hostNetwork = true
+      hostNetwork = false
 
       service = {
-        type = "ClusterIP"
+        type           = "LoadBalancer"
+        loadBalancerIP = "0.0.0.0"
       }
 
       metrics = {

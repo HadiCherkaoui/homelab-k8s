@@ -205,7 +205,3 @@ variable "gitlab_agent_token" {
   type      = string
   sensitive = true
 }
-
-variable "metallb_ip_range" {
-  type = list(string)
-}

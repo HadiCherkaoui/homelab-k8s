@@ -20,16 +20,14 @@ module "storage" {
 module "websites" {
   source = "./modules/websites"
 
-  hadi_hostname                   = var.hadi_hostname
-  laura_hostname                  = var.laura_hostname
-  quillium_docs_hostname          = var.quillium_docs_hostname
-  docs_hostname                   = var.docs_hostname
+  hadi_hostname          = var.hadi_hostname
+  laura_hostname         = var.laura_hostname
+  quillium_docs_hostname = var.quillium_docs_hostname
+  docs_hostname          = var.docs_hostname
 }
 
-module "metallb" {
-  source = "./modules/metallb"
-
-  metallb_ip_range = var.metallb_ip_range
+module "kube_vip" {
+  source = "./modules/kube-vip"
 }
 
 module "monitoring" {
