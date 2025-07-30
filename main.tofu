@@ -26,6 +26,12 @@ module "websites" {
   docs_hostname                   = var.docs_hostname
 }
 
+module "metallb" {
+  source = "./modules/metallb"
+
+  metallb_ip_range = var.metallb_ip_range
+}
+
 module "monitoring" {
   source = "./modules/monitoring"
 
