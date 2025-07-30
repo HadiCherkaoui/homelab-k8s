@@ -44,23 +44,23 @@ resource "helm_release" "wg_easy" {
       }
       service = {
         main = {
-          enabled = true
-          primary = true
-          type = "LoadBalancer"
-          loadBalancerIP = "0.0.0.0"  # Request DHCP IP from kube-vip
+          enabled        = true
+          primary        = true
+          type           = "LoadBalancer"
+          loadBalancerIP = "0.0.0.0" # Request DHCP IP from kube-vip
           ports = {
             main = {
-              enabled = true
-              primary = true
-              port = 51821
+              enabled    = true
+              primary    = true
+              port       = 51821
               targetPort = 51821
-              protocol = "http"
+              protocol   = "http"
             }
             wireguard = {
-              enabled = true
-              port = 51820
+              enabled    = true
+              port       = 51820
               targetPort = 51820
-              protocol = "udp"
+              protocol   = "udp"
             }
           }
         }
