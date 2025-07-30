@@ -121,7 +121,6 @@ resource "helm_release" "traefik" {
       service = {
         type           = "LoadBalancer"
         loadBalancerIP = "0.0.0.0"
-        # Expose SSH port for GitLab
         annotations = {
           "service.beta.kubernetes.io/external-traffic" = "OnlyLocal"
         }
