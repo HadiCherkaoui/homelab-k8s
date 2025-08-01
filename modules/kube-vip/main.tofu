@@ -150,38 +150,3 @@ resource "kubernetes_daemonset" "kube_vip" {
     }
   }
 }
-
-resource "kubernetes_cron_job" "kubevip_restart" {
-  metadata {
-    name = "kubevip-restart"
-    namespace = kubernetes_namespace.kube_vip.metadata[0].name
-  }
-
-  spec {
-    # Cron schedule every 20 hours, use a cron expression approximating this.
-    # Cron syntax doesn't allow exact hour intervals; use "0 */20 * * *" runs at minute 0 every 20th hour
-    schedule = "0 */20 * * *"
-
-    job_template {
-      spec {
-        template {
-          spec {
-            container {
-              name  = "restart-kubevip"
-              image = "bitnami/kubectl:latest" # image with kubectl installed
-
-              command = [
-                "/bin/sh",
-                "-c",
-                # Delete pods with label kube-vip run (adjust label selector as needed)
-                "kubectl delete pod -l app=kube-vip-ds --namespace kube-vip"
-              ]
-            }
-
-            restart_policy = "OnFailure"
-          }
-        }
-      }
-    }
-  }
-}
