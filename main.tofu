@@ -98,7 +98,3 @@ module "gitlab" {
 module "n8n" {
   source = "./modules/n8n"
 }
-
-module "kubevirt" {
-  source = "./modules/kubevirt"
-}
