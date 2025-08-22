@@ -47,7 +47,6 @@ resource "helm_release" "wg_easy" {
           enabled        = true
           primary        = true
           type           = "LoadBalancer"
-          loadBalancerIP = "0.0.0.0" # Request DHCP IP from kube-vip
           ports = {
             main = {
               enabled    = true

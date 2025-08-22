@@ -120,7 +120,6 @@ resource "helm_release" "traefik" {
 
       service = {
         type           = "LoadBalancer"
-        loadBalancerIP = "0.0.0.0"
         annotations = {
           "service.beta.kubernetes.io/external-traffic" = "OnlyLocal"
         }
