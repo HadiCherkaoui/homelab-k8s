@@ -65,6 +65,11 @@ variable "grafana_storage" {
   default     = "5Gi"
 }
 
+variable "cilium_l2_ip_range" {
+  description = "IP range for Cilium L2 announcements load balancer"
+  type        = list(string)
+}
+
 variable "openvpn_user" {
   type      = string
   sensitive = true
@@ -204,8 +209,4 @@ variable "protonmail_username" {
 variable "gitlab_agent_token" {
   type      = string
   sensitive = true
-}
-
-variable "metallb_ip_range" {
-  type = list(string)
 }

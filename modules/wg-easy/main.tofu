@@ -44,9 +44,9 @@ resource "helm_release" "wg_easy" {
       }
       service = {
         main = {
-          enabled        = true
-          primary        = true
-          type           = "LoadBalancer"
+          enabled = true
+          primary = true
+          type    = "LoadBalancer"
           ports = {
             main = {
               enabled    = true

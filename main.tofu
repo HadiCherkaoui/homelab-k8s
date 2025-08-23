@@ -26,10 +26,10 @@ module "websites" {
   docs_hostname          = var.docs_hostname
 }
 
-module "metallb" {
-  source = "./modules/metallb"
+module "cilium_l2" {
+  source = "./modules/cilium-l2"
 
-  metallb_ip_range = var.metallb_ip_range
+  cilium_l2_ip_range = var.cilium_l2_ip_range
 }
 
 module "monitoring" {
