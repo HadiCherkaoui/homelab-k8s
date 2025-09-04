@@ -119,15 +119,31 @@ resource "kubernetes_service" "craftycontroller" {
       protocol    = "TCP"
     }
     port {
-      name        = "minecraft"
-      port        = 25565
-      target_port = 25565
-      protocol    = "TCP"
-    }
-    port {
       name        = "dynmap"
       port        = 8123
       target_port = 8123
+      protocol    = "TCP"
+    }
+  }
+}
+
+resource "kubernetes_service" "craftycontroller-minecraft" {
+  depends_on = [kubernetes_deployment.craftycontroller]
+
+  metadata {
+    name      = "craftycontroller-minecraft"
+    namespace = kubernetes_namespace.craftycontroller.metadata[0].name
+  }
+
+  spec {
+    selector = {
+      app = "craftycontroller"
+    }
+    type = "LoadBalancer"
+    port {
+      name        = "minecraft"
+      port        = 25565
+      target_port = 25565
       protocol    = "TCP"
     }
   }
