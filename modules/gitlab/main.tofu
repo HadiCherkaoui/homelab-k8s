@@ -53,7 +53,7 @@ resource "helm_release" "gitlab" {
             name  = var.gitlab_kas_hostname
             https = true
           }
-          ssh = var.gitlab_hostname
+          ssh = "ssh-${var.gitlab_hostname}"
         }
         ingress = {
           enabled              = false
