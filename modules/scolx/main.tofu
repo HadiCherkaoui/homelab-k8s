@@ -65,6 +65,7 @@ resource "kubernetes_deployment" "scolx_frontend" {
 
 resource "kubernetes_persistent_volume_claim" "scolx" {
   depends_on = [kubernetes_namespace.scolx]
+  wait_until_bound = false
   metadata {
     name      = "scolx"
     namespace = kubernetes_namespace.scolx.metadata[0].name
