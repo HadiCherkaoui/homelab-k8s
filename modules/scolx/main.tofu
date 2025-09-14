@@ -63,6 +63,22 @@ resource "kubernetes_deployment" "scolx_frontend" {
   }
 }
 
+resource "kubernetes_persistent_volume_claim" "scolx" {
+  depends_on = [kubernetes_namespace.scolx]
+  metadata {
+    name      = "scolx"
+    namespace = kubernetes_namespace.scolx.metadata[0].name
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "1Gi"
+      }
+    }
+  }
+}
+
 resource "kubernetes_deployment" "scolx_backend" {
   depends_on = [kubernetes_namespace.scolx]
   metadata {
@@ -104,9 +120,23 @@ resource "kubernetes_deployment" "scolx_backend" {
             name  = "SIGNUPS_DISABLED"
             value = true
           }
+          env {
+            name  = "DATABASE_PATH"
+            value = "/app/data/scolx.db"
+          }
+          volume_mount {
+            name       = "scolx"
+            mount_path = "/app/data"
+          }
           port {
             container_port = 8080
             name           = "main"
+          }
+        }
+        volume {
+          name = "scolx"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.scolx.metadata[0].name
           }
         }
       }
