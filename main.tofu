@@ -59,6 +59,19 @@ module "craftycontroller" {
   source = "./modules/craftycontroller"
 }
 
+module "scolx" {
+  source = "./modules/scolx"
+
+  scolx_hostname       = var.scolx_hostname
+  jwt_secret           = var.scolx_jwt_secret
+  scolx_admin_password = var.scolx_admin_password
+  scolx_admin_user     = var.scolx_admin_user
+
+  registry_server   = var.gitlab_registry_hostname
+  registry_username = var.gitlab_registry_username
+  registry_password = var.gitlab_registry_password
+}
+
 module "ai" {
   source = "./modules/ai"
 

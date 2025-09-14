@@ -53,6 +53,28 @@ variable "prometheus_storage" {
   default     = "10Gi"
 }
 
+variable "scolx_hostname" {
+  description = "Hostname for ScolX"
+  type        = string
+}
+
+variable "scolx_jwt_secret" {
+  description = "JWT secret for ScolX"
+  type        = string
+  sensitive   = true
+}
+
+variable "scolx_admin_user" {
+  description = "Admin user for ScolX"
+  type        = string
+}
+
+variable "scolx_admin_password" {
+  description = "Admin password for ScolX"
+  type        = string
+  sensitive   = true
+}
+
 variable "alertmanager_storage" {
   description = "Storage size for AlertManager"
   type        = string
@@ -209,4 +231,16 @@ variable "protonmail_username" {
 variable "gitlab_agent_token" {
   type      = string
   sensitive = true
+}
+
+variable "gitlab_registry_username" {
+  description = "Username for GitLab Container Registry auth (e.g. Deploy Token username)"
+  type        = string
+  sensitive   = true
+}
+
+variable "gitlab_registry_password" {
+  description = "Password/token for GitLab Container Registry auth (e.g. Deploy Token)"
+  type        = string
+  sensitive   = true
 }
