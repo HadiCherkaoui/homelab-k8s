@@ -24,8 +24,67 @@ resource "kubernetes_secret" "scolx_registry" {
   }
 }
 
+resource "kubernetes_secret" "pg_superuser" {
+  metadata {
+    name      = "pg-superuser-secret"
+    namespace = kubernetes_namespace.scolx.metadata[0].name
+  }
+  type = "kubernetes.io/basic-auth"
+  data = {
+    username = "postgres"
+    password = var.scolx_postgres_password
+  }
+}
+
+resource "kubernetes_manifest" "postgres_cluster" {
+  manifest = {
+    apiVersion = "postgresql.cnpg.io/v1"
+    kind       = "Cluster"
+    metadata = {
+      name      = "scolx-postgres-cluster"
+      namespace = kubernetes_namespace.scolx.metadata[0].name
+    }
+    spec = {
+      instances            = 1
+      enableSuperuserAccess = true
+      superuserSecret = {
+        name = kubernetes_secret.pg_superuser.metadata[0].name
+      }
+      storage = {
+        size         = "10Gi"
+      }
+    }
+  }
+}
+
+resource "helm_release" "pgadmin" {
+  name       = "pgadmin"
+  namespace  = kubernetes_namespace.scolx.metadata[0].name
+  repository = "oci://tccr.io/truecharts"
+  chart      = "pgadmin"
+  version    = "19.9.0"
+
+  values = [yamlencode({
+        workload = {
+          main = {
+            podSpec = {
+              containers = {
+                main = {
+                  env = {
+                    PGADMIN_DEFAULT_EMAIL = var.pgadmin_default_email
+                    PGADMIN_DEFAULT_PASSWORD = var.pgadmin_default_password
+                  }
+                }
+              }
+            }
+          }
+        }
+    })
+  ]
+}
+
 resource "kubernetes_deployment" "scolx_frontend" {
-  depends_on = [kubernetes_namespace.scolx]
+  depends_on = [helm_release.cnpg_operator, kubernetes_namespace.scolx]
   metadata {
     name      = "scolx-frontend"
     namespace = kubernetes_namespace.scolx.metadata[0].name

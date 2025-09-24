@@ -55,18 +55,8 @@ resource "kubernetes_persistent_volume_claim" "paperless_consume" {
   }
 }
 
-resource "helm_release" "cnpg_operator" {
-  depends_on = [kubernetes_namespace.paperless]
-
-  name       = "cnpg-operator"
-  repository = "https://cloudnative-pg.github.io/charts"
-  chart      = "cloudnative-pg"
-  namespace  = kubernetes_namespace.paperless.metadata[0].name
-  version    = "0.24.0"
-}
-
 resource "helm_release" "paperless" {
-  depends_on = [helm_release.cnpg_operator, kubernetes_namespace.paperless]
+  depends_on = [kubernetes_namespace.paperless]
 
   name       = "paperless"
   repository = "oci://tccr.io/truecharts"

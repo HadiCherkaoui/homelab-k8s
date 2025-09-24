@@ -17,6 +17,10 @@ module "storage" {
   local_path_provisioner_path = var.local_path_provisioner_path
 }
 
+module "cnpg_operator" {
+  source = "./modules/cnpg-operator"
+}
+
 module "websites" {
   source = "./modules/websites"
 
@@ -70,6 +74,11 @@ module "scolx" {
   registry_server   = var.gitlab_registry_hostname
   registry_username = var.gitlab_registry_username
   registry_password = var.gitlab_registry_password
+
+  pgadmin_default_email = var.pgadmin_default_email
+  pgadmin_default_password = var.pgadmin_default_password
+
+  scolx_postgres_password = var.scolx_postgres_password
 }
 
 module "ai" {

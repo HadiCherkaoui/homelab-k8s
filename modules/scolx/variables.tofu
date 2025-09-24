@@ -36,3 +36,20 @@ variable "registry_password" {
   type        = string
   sensitive   = true
 }
+
+variable "pgadmin_default_email" {
+  description = "Default email for pgadmin"
+  type        = string
+}
+
+variable "pgadmin_default_password" {
+  description = "Default password for pgadmin"
+  type        = string
+  sensitive   = true
+}
+
+variable "scolx_postgres_password" {
+  description = "Password for ScolX Postgres"
+  type        = string
+  sensitive   = true
+}
